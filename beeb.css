@@ -5,3 +5,21 @@
   background-size: 3000px 500px;
   text-align: center;
 }
+
+.josh {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  animation-name: test;
+  animation-duration: 2s;
+}
+
+@keyframes example {
+  from {color: red;}
+  to {color: blue;}
+}
+</style>
+
+<body>
+  <div>This is a div</div>
+</body>
