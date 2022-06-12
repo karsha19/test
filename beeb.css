@@ -7,19 +7,11 @@
 }
 
 .josh {
-  width: 100px;
-  height: 100px;
-  background-color: red;
-  animation-name: test;
-  animation-duration: 2s;
+  color: darkcyan;
+  text-align: center;
 }
 
 @keyframes example {
   from {color: red;}
   to {color: blue;}
 }
-</style>
-
-<body>
-  <div>This is a div</div>
-</body>
