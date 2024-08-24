@@ -15,11 +15,11 @@ a {
   display: flex;
 }
 .big_e{
-  background-color: #2111e9
+  background-color: gold;
 }
 .bob {
   border: none;
-  color: darkcyan;
+  color: gold;
   text-align: center;
   text-decoration: none;
   display: block;
@@ -27,7 +27,7 @@ a {
 }
 .bill {
   border: none;
-  color: darkcyan;
+  color: gold;
   text-align: center;
   text-decoration: none;
   display: block;
