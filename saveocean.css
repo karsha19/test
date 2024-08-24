@@ -1,6 +1,6 @@
 
 .container {
-  background-color: goldenrod; /* Green */
+  background-color: goldenrod;
   border: none;
   color: gold;
   padding: 32px 59px;
@@ -13,3 +13,4 @@
 
 .container {
   display: block;
+}
