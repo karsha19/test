@@ -1,6 +1,10 @@
 ul{
   list-style-type: lower-alpha;
 }
+div{
+  display: inline;
+}
+
 .container {
   background-color: goldenrod;
   border: none;
