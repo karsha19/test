@@ -33,5 +33,6 @@ body{
   border: 8px solid black;
 }
 .Card:Hover {
-  box-shadow: 12px 12px 12px grey;
+  box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1),
+  -10px -10px 10px white;
 }
