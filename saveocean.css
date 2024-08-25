@@ -14,8 +14,8 @@
 .beeb {
   color: gold;
   background-color: goldenrod;
-  display: block;
-  background-size: 3000px 500px;
+  display: inline;
+  background-size: 700px 200px;
   text-align: left;
-  border-radius: 15px;
+  border-radius: 50px;
 }
