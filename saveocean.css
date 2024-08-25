@@ -21,6 +21,8 @@ body{
 
 .Card {
   margin-top: 50;
+  margin-left: 10;
+  margin-right: 10;
   color: gold;
   background-color: goldenrod;
   display: inline;
