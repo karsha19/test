@@ -1,11 +1,11 @@
 ul{
   list-style-type: square;
-  border: 1px solid black;
+  border: 0.1px solid black;
 }
 
 body{
   display: flex;
-  border: 1px solid black;
+  border: 0.1px solid black;
 }
 
 .container {
@@ -28,9 +28,9 @@ body{
   background-size: 0px 0px;
   border-radius: 10px;
   padding: 5px;
-  border: 1px solid black;
+  border: 0.1px solid black;
 }
 .Card:Hover {
   box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.2),
-  -3px -3px 3px rgba(255, 255, 255, 0.01);
+  -10px -10px 10px rgba(255, 255, 255, 0.01);
 }
