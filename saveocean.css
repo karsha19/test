@@ -8,8 +8,9 @@ body{
 }
 
 div{
-   margin-left: 10;
+  margin-left: 10;
   margin-right: 10;
+  border: 8px solid black;
 }
 
 .container {
