@@ -8,62 +8,14 @@
   text-decoration: none;
   display: block;
   font-size: 20px;
-}
-
-.container {
   display: block;
 }
+
 .beeb {
-  color: goldenrod;
-  background-color: gold;
+  color: gold;
+  background-color: goldenrod;
   display: block;
   background-size: 3000px 500px;
-  text-align: center;
-  padding: 0px
-}
-
-.josh {
-  color: goldenrod;
-  text-align: center;
-}
-
-@keyframes example {
-  from {color: red;}
-  to {color: blue;}
-}
-
-a {
-  background-color: goldenrod; /* Green */
-  border: none;
-  color: darkcyan;
-  padding: 20px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: block;
-  font-size: 20px;
-  border-radius: 20px;
-  background-size: 20px;
-}
-
-.joe {
-  display: flex;
-}
-.big_e{
-  background-color: gold;
-}
-.bob {
-  border: none;
-  color: gold;
-  text-align: center;
-  text-decoration: none;
-  display: block;
-  font-size: 28px;
-}
-.bill {
-  border: none;
-  color: gold;
-  text-align: center;
-  text-decoration: none;
-  display: block;
-  font-size: 35px;
+  text-align: left;
+  border-radius: 15px;
 }
