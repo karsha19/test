@@ -4,6 +4,7 @@ ul{
 
 body{
   display: flex;
+  border: 8px solid black;
 }
 
 .container {
