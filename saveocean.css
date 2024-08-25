@@ -16,7 +16,7 @@ ul{
 .beeb {
   color: gold;
   background-color: goldenrod;
-  display: inline;
+  display: block;
   background-size: 700px 200px;
   text-align: left;
   border-radius: 50px;
