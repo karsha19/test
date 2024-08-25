@@ -8,12 +8,6 @@ body{
   border: 8px solid black;
 }
 
-div{
-  margin-left: 10;
-  margin-right: 10;
-  border: 8px solid black;
-}
-
 .container {
   background-color: goldenrod;
   border: none;
@@ -34,4 +28,10 @@ div{
   background-size: 0px 0px;
   border-radius: 10px;
   padding: 5px;
+  margin-left: 10;
+  margin-right: 10;
+  border: 8px solid black;
+}
+.Card:Hover {
+  box-shadow: 12px 12px 12px grey;
 }
