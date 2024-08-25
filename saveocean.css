@@ -1,5 +1,5 @@
 ul{
-  list-style-type: lower-alpha;
+  list-style-type: square;
 }
 div{
   display: inline;
@@ -21,7 +21,7 @@ div{
   margin-top: 50;
   color: gold;
   background-color: goldenrod;
-  display: block;
+  display: inline;
   background-size: 50px 100px;
   text-align: left;
   border-radius: 10px;
