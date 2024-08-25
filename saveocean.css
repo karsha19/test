@@ -14,11 +14,11 @@ ul{
 }
 
 .beeb {
-  margin-top: 175;
+  margin-top: 50;
   color: gold;
   background-color: goldenrod;
   display: block;
-  background-size: 300px 100px;
+  background-size: 50px 100px;
   text-align: left;
   border-radius: 10px;
 }
