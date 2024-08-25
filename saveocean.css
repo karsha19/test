@@ -1,9 +1,6 @@
 ul{
   list-style-type: square;
 }
-div{
-  display: inline;
-}
 
 .container {
   background-color: goldenrod;
