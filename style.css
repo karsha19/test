@@ -12,7 +12,7 @@ body{
   align-items: flex-start;
 }
 h1{
-  background: linear-gradient(to right, red, blue);
+  background: linear-gradient(to right, gold, goldenrod);
   background-clip: text;
   color: transparent;
 }
@@ -32,9 +32,9 @@ h1{
 .Card {
   margin-left: 10;
   margin-right: 10;
-  color: gold;
   background-color: rgba(225, 255, 225, 0.05);
-  background-size: 200px 600px;
+  height: 150;
+  width: 200;
   border-radius: 10px;
   padding: 5px;
   border: 0.1px solid black;
