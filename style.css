@@ -13,8 +13,11 @@ h1{
   background: linear-gradient(to right, rgb(0, 75, 162), rgb(255, 206, 30));
   background-clip: text;
   color: transparent;
-  font-size: 80px;
+  font-size: 60px;
   border: 0.1px solid black;
+}
+input{
+  width: 10%;
 }
 
 .container {
@@ -27,7 +30,6 @@ h1{
   height: 100px;
   width: 250px;
   border-radius: 10px;
-  padding: 5px;
   border: 0.1px solid black;
   backdrop-filter: blur(3px);
   display: block;
@@ -51,7 +53,7 @@ h1{
   display: none;
 }
 .sidebox {
-  background-color: rgba(225, 255, 255, 1);
+  background-color: rgba(255, 255, 255, 1);
   height: 100%;
   width: 10%;
   border: 0.1px solid black;
