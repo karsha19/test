@@ -47,8 +47,8 @@ h1{
 }
 
 .Scrollable {
-  width: 200;
-  max-width: 200;
+  height: 175;
+  max-height: 175;
   overflow-y: hidden;
   overflow-x: scroll;
 }
