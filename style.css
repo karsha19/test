@@ -6,7 +6,7 @@ body{
   display: flex;
   border: 0.1px solid black;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: flex-end;
 }
 h1{
   background: linear-gradient(to right, rgb(0, 75, 162), rgb(255, 206, 30));
@@ -48,7 +48,7 @@ h1{
   width: 90%;
   gap: 10px;
   overflow-x: scroll;
-  align-items: flex-end;
+  align-items: flex-start;
 }
 .example::-webkit-scrollbar {
   display: none;
