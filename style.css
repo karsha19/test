@@ -50,3 +50,6 @@ h1{
   overflow-x: scroll;
   align-items: center;
 }
+.example::-webkit-scrollbar {
+  display: none;
+}
