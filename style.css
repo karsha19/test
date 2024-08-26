@@ -11,6 +11,11 @@ body{
   justify-content: flex-start;
   align-items: flex-start;
 }
+h1{
+  background: linear-gradient(to right, red, blue);
+  background-clip: text;
+  color: transparent;
+}
 
 .container {
   background-color: goldenrod;
