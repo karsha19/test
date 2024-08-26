@@ -41,6 +41,7 @@ h1{
   display: flex;
   width: 90%;
   gap: 10px;
+  height: 100px;
   overflow-x: scroll;
   align-items: flex-start;
    border: 0.1px solid black;
