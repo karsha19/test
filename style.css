@@ -5,8 +5,8 @@ ul{
 body{
   display: flex;
   border: 0.1px solid black;
-  justify-content: flex-start;
-  align-items: flex-end;
+  justify-content: flex-end;
+  align-items: flex-start;
 }
 h1{
   background: linear-gradient(to right, rgb(0, 75, 162), rgb(255, 206, 30));
