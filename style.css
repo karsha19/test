@@ -45,10 +45,10 @@ h1{
 
 .Scrollable {
   display: flex;
-  width: 200;
+  width: 90%;
   gap: 10px;
   overflow-x: scroll;
-  align-items: center;
+  align-items: flex-end;
 }
 .example::-webkit-scrollbar {
   display: none;
