@@ -43,6 +43,7 @@ h1{
   gap: 10px;
   height: 200px;
   overflow-x: scroll;
+  overflow-y: visible;
   align-items: flex-start;
    border: 0.1px solid black;
 }
