@@ -8,6 +8,8 @@ table{
 body{
   display: flex;
   border: 0.1px solid black;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .container {
