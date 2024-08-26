@@ -2,9 +2,6 @@ ul{
   list-style-type: square;
   border: 0.1px solid black;
 }
-table{
-  border: 1px solid black;
-}
 body{
   display: flex;
   border: 0.1px solid black;
@@ -48,7 +45,7 @@ h1{
 
 .Scrollable {
   display: flex;
-  width: 120%;
+  width: 20%;
   gap: 10px;
   overflow-x: scroll;
   align-items: center;
