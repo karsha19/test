@@ -29,7 +29,7 @@ body{
   border-radius: 10px;
   padding: 5px;
   border: 0.1px solid black;
-  backdrop-filter: blur(7px);
+  backdrop-filter: blur(6px);
 }
 .Card:Hover {
   box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.2),
