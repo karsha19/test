@@ -45,7 +45,7 @@ h1{
 
 .Scrollable {
   display: flex;
-  width: 20%;
+  width: 400;
   gap: 10px;
   overflow-x: scroll;
   align-items: center;
