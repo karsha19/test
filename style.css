@@ -17,7 +17,7 @@ h1{
   border: 0.1px solid black;
 }
 input{
-  width: 10%;
+  width: 100%;
 }
 
 .container {
@@ -41,7 +41,7 @@ input{
 
 .Scrollable {
   display: flex;
-  width: 100%;
+  width: 90%;
   gap: 10px;
   height: 120px;
   overflow-x: scroll;
