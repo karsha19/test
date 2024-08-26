@@ -13,7 +13,7 @@ h1{
   background: linear-gradient(to right, rgb(0, 75, 162), rgb(255, 206, 30));
   background-clip: text;
   color: transparent;
-  font-size: 100;
+  font-size: 100px;
   border: 0.1px solid black;
 }
 
