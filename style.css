@@ -12,7 +12,7 @@ body{
   align-items: flex-start;
 }
 h1{
-  background: linear-gradient(to right, gold, goldenrod);
+  background: linear-gradient(to right, rgb(0, 94, 255), rgb(255, 205, 0);
   background-clip: text;
   color: transparent;
 }
