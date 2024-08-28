@@ -1,10 +1,10 @@
 ul{
   list-style-type: square;
-  border: 1px white;
+  border: 1px gray;
 }
 body{
   display: flex;
-  border: 1px white;
+  border: 1px gray;
   justify-content: flex-end;
   align-items: flex-start;
   margin-top: 50px;
@@ -14,7 +14,7 @@ h1{
   background-clip: text;
   color: transparent;
   font-size: 60px;
-  border: 1px white;
+  border: 1px gray;
 }
 input{
   width: 500px;
@@ -30,7 +30,7 @@ input{
   height: 100px;
   width: 250px;
   border-radius: 10px;
-  border: 1px white;
+  border: 1px gray;
   backdrop-filter: blur(4px);
   display: block;
 }
@@ -47,7 +47,7 @@ input{
   overflow-x: scroll;
   overflow-y: visible;
   align-items: flex-start;
-  border: 1px white;
+  border: 1px gray;
 }
 .Scrollable::-webkit-scrollbar {
   display: none;
@@ -56,11 +56,11 @@ input{
   background-color: rgba(255, 255, 255, 0.5);
   height: 100%;
   width: 10%;
-  border: 1px white;
+  border: 1px gray;
   display: block;
 }
 .search-bar {
   display: flex;
   align-items: center;
-  border: 1px white;
+  border: 1px gray;
 }
