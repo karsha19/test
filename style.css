@@ -60,7 +60,6 @@ input{
   backdrop-filter: blur(5px);
 }
 .search-bar {
-  display: flex;
-  align-items: center;
+  display: block;
   border: 1px gray;
 }
