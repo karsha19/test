@@ -7,7 +7,6 @@ body{
   border: 1px gray;
   justify-content: flex-end;
   align-items: flex-start;
-  margin-top: 50px;
 }
 h1{
   background: linear-gradient(to right, rgb(128, 128, 128), rgb(255, 206, 30));
