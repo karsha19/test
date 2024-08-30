@@ -3,10 +3,8 @@ ul{
   border: 1px gray;
 }
 body{
-  display: flex;
+  display: block;
   border: 1px gray;
-  justify-content: flex-end;
-  align-items: flex-start;
 }
 h1{
   background: linear-gradient(to right, rgb(128, 128, 128), rgb(255, 206, 30));
@@ -17,9 +15,6 @@ h1{
 }
 input{
   width: 500px;
-}
-
-.container {
 }
 
 .Card {
@@ -62,4 +57,11 @@ input{
 .search-bar {
   display: block;
   border: 1px gray;
+  width: 100%;
+}
+.flex {
+  display: flex;
+  border: 1px gray;
+  justify-content: flex-end;
+  align-items: flex-start;
 }
