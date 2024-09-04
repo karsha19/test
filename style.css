@@ -15,7 +15,9 @@ h1{
   border: 5px white;
 }
 input{
-  width: 500px;
+  width: 50%;
+  margin-left: 25%;
+  margin-right: 25%;
 }
 
 .Card {
