@@ -27,7 +27,6 @@ input{
   border-radius: 10px;
   border: 1px gray;
   backdrop-filter: blur(5px);
-  display: block;
 }
 .Card:Hover {
   box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.2),
