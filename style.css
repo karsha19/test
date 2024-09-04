@@ -7,6 +7,9 @@ body{
   display: inline;
   width: 90%;
 }
+head{
+  display: block;
+}
 h1{
   background: linear-gradient(to right, rgb(128, 128, 128), rgb(255, 206, 30));
   background-clip: text;
@@ -61,7 +64,6 @@ input{
   overflow-x: hidden;
 }
 .search-bar {
-  display: block;
   border: 5px white;
   width: 100%;
 }
