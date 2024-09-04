@@ -62,7 +62,6 @@ input{
   display: block;
   border: 5px white;
   width: 100%;
-  align-items: center;
 }
 .flex {
   display: flex;
