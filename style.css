@@ -2,20 +2,6 @@ ul{
   list-style-type: square;
   border: 5px white;
 }
-.main{
-  border: 5px white;
-  display: inline;
-  width: 90%;
-}
-.head{
-  display: flex;
-  height: 10%;
-  background-color: rgba(225, 255, 255, 0.05);
-  width: 100%;
-  border-radius: 10px;
-  border: 5px white;
-  backdrop-filter: blur(5px);
-}
 h1{
   background: linear-gradient(to right, rgb(128, 128, 128), rgb(255, 206, 30));
   background-clip: text;
@@ -87,16 +73,29 @@ input{
 .add-tile {
   border: 5px white;
   border-radius: 100px;
-  width: 10%;
+  width: 50px;
   display: inline;
   background-color: rgba(225, 255, 255, 0.05);
   backdrop-filter: blur(5px);
-  margin-left: 45%;
-  margin-right: 45%;
 }
 .logo {
   height: 50px;
   width: 50px;
   border-radius: 10px;
   border: 5px white;
+}
+.main{
+  border: 5px white;
+  display: inline;
+  width: 90%;
+}
+.head{
+  display: flex;
+  height: 10%;
+  background-color: rgba(225, 255, 255, 0.05);
+  width: 100%;
+  border-radius: 10px;
+  border: 5px white;
+  backdrop-filter: blur(5px);
+  align-items: center;
 }
