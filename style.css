@@ -9,13 +9,6 @@ h1{
   font-size: 60px;
   border: 5px white;
 }
-p{
-  background: linear-gradient(to right, rgb(128, 128, 128), rgb(255, 206, 30));
-  background-clip: text;
-  color: transparent;
-  font-size: 60px;
-  border: 5px white;
-}
 input{
   width: 50%;
   backdrop-filter: blur(5px);
@@ -83,6 +76,7 @@ input{
   background-color: rgba(225, 255, 255, 0.05);
   backdrop-filter: blur(5px);
   cursor: pointer;
+  text-color: rgb(255, 255, 255);
 }
 .logo {
   height: 50px;
