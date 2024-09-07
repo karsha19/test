@@ -2,12 +2,12 @@ ul{
   list-style-type: square;
   border: 5px white;
 }
-body{
+.main{
   border: 5px white;
   display: inline;
   width: 90%;
 }
-head{
+.head{
   display: flex;
   height: 10%;
   background-color: rgba(225, 255, 255, 0.05);
