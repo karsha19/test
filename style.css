@@ -8,7 +8,7 @@ body{
   width: 90%;
 }
 head{
-  display: block;
+  display: flex;
   height: 10%;
   background-color: rgba(225, 255, 255, 0.05);
   width: 100%;
