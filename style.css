@@ -108,6 +108,7 @@ input{
   position: absolute;
   transform: translate(0%, 0%) scale(0.1);
   text-align: center;
+  visibility: hidden;
 }
 .popup h2{
   background: linear-gradient(to right, rgb(128, 128, 128), rgb(255, 206, 30));
