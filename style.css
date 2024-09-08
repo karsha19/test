@@ -111,7 +111,7 @@ input{
 }
 .popup{
   height: 500px;
-  width: 500px;
+  width: 40%;
   background-color: rgb(225, 255, 255);
   border-radius: 10px;
   position: absolute;
@@ -120,6 +120,8 @@ input{
   visibility: hidden;
   transition: transform 0.4s, top 0.4s;
   z-index: 3;
+  margin-left: 30%;
+  margin-right: 30%;
 }
 .open-popup{
   visibility: visible;
