@@ -22,7 +22,7 @@ h1{
   z-index: 1;
 }
 .tile-name-input{
-  margin-left: 25%;
+  margin-left: 20%;
   width: 50%;
   backdrop-filter: blur(5px);
   background-color: rgba(225, 255, 255, 0.05);
