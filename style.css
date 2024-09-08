@@ -1,3 +1,4 @@
+
 ul{
   list-style-type: square;
   border: 5px white;
@@ -109,6 +110,12 @@ input{
   transform: translate(0%, 0%) scale(0.1);
   text-align: center;
   visibility: hidden;
+  transition: transform 0.4s, top 0.4s;
+}
+.open-popup{
+  visibility: visible;
+  top: 50%;
+  transform: translate(0%, 0%) scale(0.1);
 }
 .popup h2{
   background: linear-gradient(to right, rgb(128, 128, 128), rgb(255, 206, 30));
@@ -126,3 +133,4 @@ input{
   cursor: pointer;
   color: rgb(255, 255, 255);
 }
+
