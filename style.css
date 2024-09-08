@@ -114,6 +114,7 @@ input{
   background-clip: text;
   color: transparent;
   font-size: 60px;
+  top: 0%;
 }
 .hide {
   border-radius: 100px;
