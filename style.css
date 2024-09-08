@@ -11,7 +11,7 @@ h1{
   border: 5px white;
   z-index: 2;
 }
-input{
+.search{
   margin-left: 25%;
   margin-right: 25%;
   width: 50%;
@@ -20,6 +20,16 @@ input{
   border-radius: 10px;
   display: inline;
   z-index: 1;
+}
+.tile-name-input{
+  margin-left: 25%;
+  margin-right: 25%;
+  width: 50%;
+  backdrop-filter: blur(5px);
+  background-color: rgba(225, 255, 255, 0.05);
+  border-radius: 10px;
+  display: block;
+  z-index: 4;
 }
 
 .Card {
