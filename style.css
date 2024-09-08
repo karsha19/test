@@ -115,7 +115,7 @@ input{
   background-color: rgb(225, 255, 255);
   border-radius: 10px;
   position: absolute;
-  transform: translate(50%, 0%) scale(0.1);
+  transform: translate(100%, 0%) scale(0.1);
   text-align: center;
   visibility: hidden;
   transition: transform 0.4s, top 0.4s;
@@ -124,7 +124,7 @@ input{
 .open-popup{
   visibility: visible;
   top: 50%;
-  transform: translate(50%, 0%) scale(1);
+  transform: translate(100%, 0%) scale(1);
 }
 .popup h2{
   background: linear-gradient(to right, rgb(128, 128, 128), rgb(255, 206, 30));
