@@ -9,6 +9,7 @@ h1{
   color: transparent;
   font-size: 60px;
   border: 5px white;
+  z-index: 2;
 }
 input{
   margin-left: 25%;
@@ -18,6 +19,7 @@ input{
   background-color: rgba(225, 255, 255, 0.05);
   border-radius: 10px;
   display: inline;
+  z-index: 1;
 }
 
 .Card {
@@ -29,6 +31,7 @@ input{
   border-radius: 10px;
   border: 5px white;
   backdrop-filter: blur(5px);
+  z-index: 1;
 }
 .Card:Hover {
   box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.2),
@@ -44,6 +47,7 @@ input{
   overflow-y: visible;
   align-items: flex-start;
   border: 5px white;
+  z-index: 1;
 }
 .Scrollable::-webkit-scrollbar {
   display: none;
@@ -59,10 +63,12 @@ input{
   top: 0;
   left: 0;
   overflow-x: hidden;
+  z-index: 1;
 }
 .search-bar {
   border: 5px white;
   width: 100%;
+  z-index: 1;
 }
 .flex {
   display: flex;
@@ -81,12 +87,14 @@ input{
   cursor: pointer;
   color: rgb(255, 255, 255);
   margin-left: 48%;
+  z-index: 2;
 }
 .logo {
   height: 50px;
   width: 50px;
   border-radius: 10px;
   border: 5px white;
+  z-index: 2;
 }
 .main{
   border: 5px white;
@@ -111,6 +119,7 @@ input{
   text-align: center;
   visibility: hidden;
   transition: transform 0.4s, top 0.4s;
+  z-index: 3;
 }
 .open-popup{
   visibility: visible;
@@ -123,6 +132,7 @@ input{
   color: transparent;
   font-size: 60px;
   top: 0%;
+  z-index: 4;
 }
 .hide {
   border-radius: 100px;
