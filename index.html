@@ -7,7 +7,7 @@ body {
 }
 </style>
 <body class = "head">
-	<input class = "search" type="input" list ="Card">
+	<input class = "search" type="text" required list ="Card">
 	<datalist id="Card">
 		<option value="Medical Info"></option>
 		<option value="Passwords"></option>
@@ -16,7 +16,7 @@ body {
 	</datalist>
 	<button type = "button" class = "add-tile" onclick = "openPopup()">+</button>
 	<div class = "popup" id = "popup">
-		<input type="tile-name-input">
+		<input type="text" required class="tile-name-input">
 		<button type = "button" class = "hide" onclick = "closePopup()">x</button>
 	</div>
 <script>
