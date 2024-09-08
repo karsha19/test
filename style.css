@@ -23,12 +23,11 @@ h1{
 }
 .tile-name-input{
   margin-left: 25%;
-  margin-right: 25%;
   width: 50%;
   backdrop-filter: blur(5px);
   background-color: rgba(225, 255, 255, 0.05);
   border-radius: 10px;
-  display: block;
+  display: inline;
   z-index: 4;
 }
 
@@ -154,5 +153,6 @@ h1{
   background-color: rgba(225, 255, 255, 0.05);
   backdrop-filter: blur(5px);
   cursor: pointer;
+  margin-left: 50px;
 }
 
