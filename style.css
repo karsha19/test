@@ -164,3 +164,6 @@ h1{
   cursor: pointer;
   margin-left: 50px;
 }
+.file-types {
+  display: block;
+}
