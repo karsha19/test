@@ -79,6 +79,7 @@ input{
   backdrop-filter: blur(5px);
   cursor: pointer;
   color: rgb(255, 255, 255);
+  margin-left: 48%;
 }
 .logo {
   height: 50px;
