@@ -100,3 +100,9 @@ input{
   border: 5px white;
   backdrop-filter: blur(5px);
 }
+.popup{
+  height: 500px;
+  width: 500px;
+  background-color: rgb(225, 255, 255);
+  border-radius: 10px;
+}
