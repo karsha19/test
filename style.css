@@ -131,6 +131,5 @@ input{
   background-color: rgba(225, 255, 255, 0.05);
   backdrop-filter: blur(5px);
   cursor: pointer;
-  color: rgb(255, 255, 255);
 }
 
