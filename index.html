@@ -19,6 +19,16 @@ body {
 		<h2> upload tile here </h2>
 		<button type = "button" class = "hide" onclick = "closePopup()">x</button>
 	</div>
+<script>
+let popup = document.getElementById("popup");
+
+function openPopup(){
+	popup.classList.add("open-popup");
+}
+function closePopup(){
+	popup.classList.remove("open-popup");
+}
+</script>
 </body>
 <body class = "main">
 	<div class = "flex">
