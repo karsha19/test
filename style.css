@@ -125,7 +125,7 @@ h1{
   position: absolute;
   transform: translate(0%, 0%) scale(0.1);
   text-align: center;
-  display: block;
+  display: none;
   transition: transform 0.4s, top 0.4s;
   z-index: 3;
   margin-left: 30%;
@@ -134,7 +134,7 @@ h1{
   backdrop-filter: blur(8px);
 }
 .open-popup{
-  display: none;
+  display: block;
   top: 50%;
   transform: translate(0%, 0%) scale(1);
 }
