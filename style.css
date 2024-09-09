@@ -125,7 +125,7 @@ h1{
   position: absolute;
   transform: translate(0%, 0%) scale(0.1);
   text-align: center;
-  visibility: hidden;
+  display: block;
   transition: transform 0.4s, top 0.4s;
   z-index: 3;
   margin-left: 30%;
@@ -134,7 +134,7 @@ h1{
   backdrop-filter: blur(8px);
 }
 .open-popup{
-  visibility: visible;
+  display: none;
   top: 50%;
   transform: translate(0%, 0%) scale(1);
 }
@@ -167,7 +167,7 @@ h1{
   display: block;
 }
 .open-txt-input {
-  visibility: hidden;
+  display: none;
 }
 .txt-input{
   margin-left: 25%;
@@ -178,5 +178,5 @@ h1{
   border-radius: 10px;
   display: inline;
   z-index: 4;
-  visibility: visible;
+  display: block;
 }
