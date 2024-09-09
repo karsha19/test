@@ -26,18 +26,18 @@ body {
 		<input type="text" required class="txt-input" id="txtInput">
 	</div>
 <script>
-let popup = document.getElementById("popup");
-let txtInput = document.getElementById("txtInput");
+var popup = document.getElementById("popup");
+var txtInput = document.getElementById("txtInput");
 
 function openPopup(){
 	popup.classList.add("open-popup");
 }
 function closePopup(){
 	popup.classList.remove("open-popup");
-	txtInput.classList.remove("open-txt-input")
+	txtInput.style.display = "block";
 }
 function openTxtInput(){
-	txtInput.classList.add("open-txt-input")
+	txtInput.style.display = "none";
 }
 </script>
 </body>
