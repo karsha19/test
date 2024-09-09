@@ -175,5 +175,5 @@ h1{
   border-radius: 10px;
   display: inline;
   z-index: 4;
-  display: block;
+  display: none;
 }
