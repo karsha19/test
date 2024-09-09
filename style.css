@@ -176,4 +176,5 @@ h1{
   display: inline;
   z-index: 4;
   display: none;
+  box-sizing: border-box;
 }
