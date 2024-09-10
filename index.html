@@ -31,7 +31,7 @@ body {
 <script>
 var popup = document.getElementById("popup");
 var txtInput = document.getElementById("txtInput");
-var ImgUpload = document.getElementById("imgUpload");
+var imgUpload = document.getElementById("imgUpload");
 
 function openPopup(){
 	popup.classList.add("open-popup");
@@ -47,6 +47,7 @@ function openTxtInput(){
 }
 function openImgUpload(){
 	imgUpload.style.display = "block";
+	txtInput.style.display = "none";
 
 }
 </script>
