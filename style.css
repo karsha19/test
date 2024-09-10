@@ -178,3 +178,14 @@ h1{
   display: none;
   box-sizing: border-box;
 }
+.upload-area{
+  margin-left: 25%;
+  width: 50%;
+  height: 50%;
+  backdrop-filter: blur(5px);
+  background-color: rgba(225, 255, 255, 0.05);
+  border-radius: 10px;
+  display: inline;
+  z-index: 4;
+  display: none;
+}
