@@ -20,24 +20,34 @@ body {
 		<button type = "button" class = "hide" onclick = "closePopup()">x</button>
 		<div class = "File-Types">
 			<button class = "txt" type = "button" onclick = "openTxtInput()"> Txt </button>
-			<button class = "txt" type = "button" onclick = "openTxtInput()"> Img </button>
+			<button class = "txt" type = "button" onclick = "openImgUpload()"> Img </button>
 			<button class = "txt" type = "button" onclick = "openTxtInput()"> Mov </button>
 		</div>
 		<textarea id="txtInput" name="subject"  type="text" required class="txt-input" placeholder="Write something.."></textarea>
+		<div class = "upload-area" id = "imgUpload">
+			<div class = "icon"> <i class="fa-solid fa-cloud-arrow-up"> </i> </div>
+		</div>
 	</div>
 <script>
 var popup = document.getElementById("popup");
 var txtInput = document.getElementById("txtInput");
+var ImgUpload = document.getElementById("imgUpload");
 
 function openPopup(){
 	popup.classList.add("open-popup");
 }
 function closePopup(){
 	popup.classList.remove("open-popup");
-	txtInput.style.display = "none";
+	ImgUpload.style.display = "none";
+	ImgUpload.style.display = "none";
 }
 function openTxtInput(){
 	txtInput.style.display = "block";
+	ImgUpload.style.display = "none";
+}
+function openImgUpload(){
+	ImgUpload.style.display = "block";
+	ImgUpload.style.display = "none";
 }
 </script>
 </body>
