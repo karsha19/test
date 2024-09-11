@@ -94,4 +94,44 @@ Html
        <input type="submit" value="Save Data">
    </form>
 </body>
-
+<py-script>
+	from flask import Flask, request, jsonify
+	import os
+	
+	
+	app = Flask(__name__)
+	
+	
+	
+	
+	@app.route('/save', methods=['POST'])
+	def save_data():
+	   # Retrieve data from form
+	   title = request.form['title']  # The title from the input field 'title'
+	   data = request.form['data']  # The data from the input field 'data'
+	
+	
+	   # Set the folder path where files will be saved
+	   folder_path = '/Users/clivebrownhill/Documents/vault_data'  # Update this path
+	   if not os.path.exists(folder_path):
+	       os.makedirs(folder_path)
+	
+	
+	   # Define the full path for the new file
+	   file_path = os.path.join(folder_path, f"{title}.txt")
+	
+	
+	   # Write the data to a file
+	   with open(file_path, 'w') as file:
+	       file.write(data)
+	
+	
+	   # Return a success message
+	   return jsonify({'message': 'Data saved successfully', 'file_path': file_path})
+	
+	
+	
+	
+	if __name__ == '__main__':
+	   app.run(debug=True)
+</py-script>
