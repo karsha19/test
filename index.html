@@ -16,14 +16,16 @@ body {
 	</datalist>
 	<button type = "button" class = "add-tile" onclick = "openPopup()">+</button>
 	<div class = "popup" id = "popup">
-		<input type="text" required class="tile-name-input">
+		<input type="text" name = "title" required class="tile-name-input">
 		<button type = "button" class = "hide" onclick = "closePopup()">x</button>
-		<div class = "File-Types">
-			<button class = "txt" type = "button" onclick = "openTxtInput()"> Txt </button>
-			<button class = "txt" type = "button" onclick = "openImgUpload()"> Img </button>
-			<button class = "txt" type = "button" onclick = "openTxtInput()"> Mov </button>
-		</div>
-		<textarea id="txtInput" name="subject"  type="text" required class="txt-input" placeholder="Write something.."></textarea>
+		<form>
+			<div class = "File-Types">
+				<button class = "txt" type = "button" onclick = "openTxtInput()"> Txt </button>
+				<button class = "txt" type = "button" onclick = "openImgUpload()"> Img </button>
+				<button class = "txt" type = "button" onclick = "openTxtInput()"> Mov </button>
+			</div>
+			<textarea id="txtInput" name="data"  type="text" required class="txt-input" placeholder="Write something.."></textarea>
+		</form>
 		<div class = "upload-area" id = "imgUpload">
 			<div class = "icon"></div>
 		</div>
@@ -90,48 +92,6 @@ Html
 <body>
    <form action="http://127.0.0.1:5000" method="post">
        Title: <input type="text" name="title" required><br>
-       Data: <textarea name="data" required></textarea><br>
        <input type="submit" value="Save Data">
    </form>
 </body>
-<py-script>
-	from flask import Flask, request, jsonify
-	import os
-	
-	
-	app = Flask(__name__)
-	
-	
-	
-	
-	@app.route('/save', methods=['POST'])
-	def save_data():
-	   # Retrieve data from form
-	   title = request.form['title']  # The title from the input field 'title'
-	   data = request.form['data']  # The data from the input field 'data'
-	
-	
-	   # Set the folder path where files will be saved
-	   folder_path = '/Users/clivebrownhill/Documents/vault_data'  # Update this path
-	   if not os.path.exists(folder_path):
-	       os.makedirs(folder_path)
-	
-	
-	   # Define the full path for the new file
-	   file_path = os.path.join(folder_path, f"{title}.txt")
-	
-	
-	   # Write the data to a file
-	   with open(file_path, 'w') as file:
-	       file.write(data)
-	
-	
-	   # Return a success message
-	   return jsonify({'message': 'Data saved successfully', 'file_path': file_path})
-	
-	
-	
-	
-	if __name__ == '__main__':
-	   app.run(debug=True)
-</py-script>
