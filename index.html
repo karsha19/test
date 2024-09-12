@@ -82,17 +82,30 @@ function openImgUpload(){
 		</div>
 	</div>
 </body>
-Html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Save File</title>
-</head>
-<body>
-   <form action="http://127.0.0.1:5000" method="post">
-       Title: <input type="text" name="title" required><br>
-       <input type="submit" value="Save Data">
-   </form>
-</body>
+
+<script>
+var popup = document.getElementById("popup");
+
+
+function openPopup() {
+	popup.style.display = 'block'; // Show the popup
+}
+
+
+function closePopup() {
+        popup.style.display = 'none'; // Hide the popup
+}
+
+
+function createAndDownloadTile() {
+	const title = document.getElementById('tileTitle').value;
+        const content = document.getElementById('tileContent').value;
+        const blob = new Blob([content], { type: 'text/plain' });
+        const anchor = document.createElement('a');
+        anchor.download = `${title}.txt`; // Set the filename from the title input
+        anchor.href = window.URL.createObjectURL(blob); // Create a URL for the blob
+        document.body.appendChild(anchor);
+        anchor.click(); // Programmatically click the anchor to trigger download
+        document.body.removeChild(anchor); // Clean up by removing the anchor
+}
+</script>
