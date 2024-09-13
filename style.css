@@ -173,10 +173,8 @@ h1{
   backdrop-filter: blur(5px); 
   background-color: rgba(225, 255, 255, 0.05);
   border-radius: 10px;
-  display: inline;
   z-index: 4;
   display: none;
-  box-sizing: border-box;
   resize: none;
 }
 .upload-area{
@@ -186,7 +184,6 @@ h1{
   backdrop-filter: blur(5px);
   background-color: rgba(225, 255, 255, 0.05);
   border-radius: 10px;
-  display: inline;
   z-index: 4;
   display: none;
 }
