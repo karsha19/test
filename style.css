@@ -89,13 +89,13 @@ h1{
 .add-tile {
   border: 5px white;
   border-radius: 100px;
-  width: 2%;
+  width: 4%;
   display: inline;
   background-color: rgba(225, 255, 255, 0.05);
   backdrop-filter: blur(5px);
   cursor: pointer;
   color: rgb(255, 255, 255);
-  margin-left: 49%;
+  margin-left: 48%;
   z-index: 2;
 }
 .logo {
