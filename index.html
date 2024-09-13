@@ -30,7 +30,7 @@ body {
 		<div class = "upload-area" id = "imgUpload">
 			<div class = "icon"><i class="fa-solid fa-file-arrow-up"></i></div>
 		</div>
-		<button type = "button" class = "done" onclick = "closePopup(); createAndDownloadTile()">Done</button>
+		<button type = "button" class = "done" onclick = "closePopup(); createAndDownloadTile()" id = "saveButton">Save</button>
 	</div>
 <script>
 var popup = document.getElementById("popup");
@@ -46,7 +46,7 @@ function closePopup(){
 	imgUpload.style.display = "none";
 	txtInput.style.display = "none";
 	document.getElementById('tileTitle').value = '';
-        document.getElementById('tileContent').value = '';
+        document.getElementById('txtInput').value = '';
 }
 function openTxtInput(){
 	txtInput.style.display = "block";
