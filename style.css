@@ -177,6 +177,7 @@ h1{
   z-index: 4;
   display: none;
   box-sizing: border-box;
+  resize: none;
 }
 .upload-area{
   margin-left: 25%;
