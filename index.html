@@ -16,7 +16,7 @@ body {
 	</datalist>
 	<button type = "button" class = "add-tile" onclick = "openPopup()">+</button>
 	<div class = "popup" id = "popup">
-		<input type="text" name = "title" required class="tile-name-input">
+		<input type="text" name = "title" required class="tile-name-input" id = "tileTitle">
 		<button type = "button" class = "hide" onclick = "closePopup()">x</button>
 		<form>
 			<div class = "File-Types">
@@ -29,7 +29,7 @@ body {
 		<div class = "upload-area" id = "imgUpload">
 			<div class = "icon"></div>
 		</div>
-		<button type = "button" class = "hide" onclick = "closePopup()">Done</button>
+		<button type = "button" class = "hide" onclick = "closePopup(); createAndDownloadTile()">Done</button>
 	</div>
 <script>
 var popup = document.getElementById("popup");
@@ -86,7 +86,7 @@ function openImgUpload(){
 <script>
 function createAndDownloadTile() {
 	const title = document.getElementById('tileTitle').value;
-        const content = document.getElementById('tileContent').value;
+        const content = document.getElementById('txtInput').value;
         const blob = new Blob([content], { type: 'text/plain' });
         const anchor = document.createElement('a');
         anchor.download = `${title}.txt`; // Set the filename from the title input
