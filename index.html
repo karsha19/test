@@ -36,6 +36,7 @@ body {
 var popup = document.getElementById("popup");
 var txtInput = document.getElementById("txtInput");
 var imgUpload = document.getElementById("imgUpload");
+var saveButton = document.getElementById("saveButton");
 
 function openPopup(){
 	popup.classList.add("open-popup");
@@ -44,15 +45,18 @@ function closePopup(){
 	popup.classList.remove("open-popup");
 	imgUpload.style.display = "none";
 	txtInput.style.display = "none";
+	document.getElementById('tileTitle').value = '';
+        document.getElementById('tileContent').value = '';
 }
 function openTxtInput(){
 	txtInput.style.display = "block";
 	imgUpload.style.display = "none";
+        saveButton.classList.remove("hidden"); 
 }
 function openImgUpload(){
 	imgUpload.style.display = "block";
 	txtInput.style.display = "none";
-
+        saveButton.classList.remove("hidden");
 }
 </script>
 </body>
@@ -85,26 +89,6 @@ function openImgUpload(){
 </body>
 
 <script>
-       var popup = document.getElementById("popup");
-       var saveButton = document.getElementById("saveButton");
-
-       function closePopup() {
-           document.getElementById('tileTitle').value = '';  // Clear title input
-           document.getElementById('tileContent').value = '';  // Clear content textarea
-       }
-
-       function openTxtInput() {
-           document.getElementById("tileContent").style.display = 'block';
-           document.getElementById("imgUpload").style.display = 'none';
-           saveButton.classList.remove("hidden");  // Show the save button only when needed
-       }
-
-       function openImgUpload() {
-           document.getElementById("imgUpload").style.display = 'block';
-           document.getElementById("tileContent").style.display = 'none';
-           saveButton.classList.remove("hidden");  // Show the save button only when needed
-       }
-
        function createAndDownloadTile() {
            const title = document.getElementById('tileTitle').value;
            const content = document.getElementById('tileContent').value;
