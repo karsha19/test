@@ -85,15 +85,37 @@ function openImgUpload(){
 </body>
 
 <script>
-function createAndDownloadTile() {
-	const title = document.getElementById('tileTitle').value;
-        const content = document.getElementById('txtInput').value;
-        const blob = new Blob([content], { type: 'text/plain' });
-        const anchor = document.createElement('a');
-        anchor.download = `${title}.txt`; // Set the filename from the title input
-        anchor.href = window.URL.createObjectURL(blob); // Create a URL for the blob
-        document.body.appendChild(anchor);
-        anchor.click(); // Programmatically click the anchor to trigger download
-        document.body.removeChild(anchor); // Clean up by removing the anchor
-}
+       var popup = document.getElementById("popup");
+       var saveButton = document.getElementById("saveButton");
+
+       function closePopup() {
+           document.getElementById('tileTitle').value = '';  // Clear title input
+           document.getElementById('tileContent').value = '';  // Clear content textarea
+       }
+
+       function openTxtInput() {
+           document.getElementById("tileContent").style.display = 'block';
+           document.getElementById("imgUpload").style.display = 'none';
+           saveButton.classList.remove("hidden");  // Show the save button only when needed
+       }
+
+       function openImgUpload() {
+           document.getElementById("imgUpload").style.display = 'block';
+           document.getElementById("tileContent").style.display = 'none';
+           saveButton.classList.remove("hidden");  // Show the save button only when needed
+       }
+
+       function createAndDownloadTile() {
+           const title = document.getElementById('tileTitle').value;
+           const content = document.getElementById('tileContent').value;
+           const blob = new Blob([content], { type: 'text/plain' });
+           const folder = 'vault_tiles';  // Folder name for storing tiles
+           const anchor = document.createElement('a');
+           anchor.download = `${folder}/${title}.txt`;  // Use the folder and title for the filename
+           anchor.href = window.URL.createObjectURL(blob);
+           document.body.appendChild(anchor);
+           anchor.click();  // Programmatically click the anchor to trigger the download
+           document.body.removeChild(anchor);  // Remove the anchor from the DOM
+           closePopup();  // Optionally close the popup and clear inputs after saving
+       }
 </script>
