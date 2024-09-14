@@ -91,13 +91,13 @@ function openImgUpload(){
            const title = document.getElementById('tileTitle').value;
            const content = document.getElementById('tileContent').value;
            const blob = new Blob([content], { type: 'text/plain' });
-           const folder = 'vault_tiles';  // Folder name for storing tiles
+           const folder = 'vault_tiles';
            const anchor = document.createElement('a');
-           anchor.download = `${folder}/${title}.txt`;  // Use the folder and title for the filename
+           anchor.download = `${folder}/${title}.txt`;
            anchor.href = window.URL.createObjectURL(blob);
            document.body.appendChild(anchor);
-           anchor.click();  // Programmatically click the anchor to trigger the download
-           document.body.removeChild(anchor);  // Remove the anchor from the DOM
-           closePopup();  // Optionally close the popup and clear inputs after saving
+           anchor.click();
+           document.body.removeChild(anchor);
+           closePopup();
        }
 </script>
