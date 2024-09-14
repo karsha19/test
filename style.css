@@ -177,7 +177,7 @@ h1{
   resize: none;
 }
 .upload-area{
-  margin-top: -30px;
+  margin-top: -10px;
   margin-left: 25%;
   width: 50%;
   height: 50%;
@@ -198,4 +198,5 @@ h1{
   background-color: rgba(225, 255, 255, 0.05);
   backdrop-filter: blur(5px);
   cursor: pointer;
+  margin-left: 45%;
 }
