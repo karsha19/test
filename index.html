@@ -40,6 +40,7 @@ var saveButton = document.getElementById("saveButton");
 
 function openPopup(){
 	popup.classList.add("open-popup");
+	saveButton.style.display = "none";
 }
 function closePopup(){
 	popup.classList.remove("open-popup");
@@ -47,14 +48,17 @@ function closePopup(){
 	txtInput.style.display = "none";
 	document.getElementById('tileTitle').value = '';
         document.getElementById('txtInput').value = '';
+	saveButton.style.display = "none";
 }
 function openTxtInput(){
 	txtInput.style.display = "block";
 	imgUpload.style.display = "none";
+	saveButton.style.display = "block";
 }
 function openImgUpload(){
 	imgUpload.style.display = "block";
 	txtInput.style.display = "none";
+	saveButton.style.display = "block";
 }
 </script>
 </body>
