@@ -74,4 +74,460 @@
         // Updated JavaScript code will be included in the next section
     </script>
 </body>
-</html>
+
+<script>
+let db;
+const dbName = 'vaultDB';
+const storeName = 'tiles';
+
+
+function openDB() {
+    const request = indexedDB.open(dbName, 1);
+
+
+    request.onupgradeneeded = function(event) {
+        db = event.target.result;
+        if (!db.objectStoreNames.contains(storeName)) {
+            db.createObjectStore(storeName, { keyPath: 'id', autoIncrement: true });
+        }
+    };
+
+
+    request.onsuccess = function(event) {
+        db = event.target.result;
+        console.log('Database opened successfully.');
+        displayTiles(); // Load tiles when DB is ready
+    };
+
+
+    request.onerror = function(event) {
+        console.error('Database error:', event.target.errorCode);
+    };
+}
+
+
+window.onload = openDB;
+
+
+// DOM Elements
+const plusPopup = document.getElementById('plusPopup');
+const plusOverlay = document.getElementById('plusOverlay');
+const tileTitle = document.getElementById('tileTitle');
+const tileContent = document.getElementById('tileContent');
+const uploadArea = document.getElementById('uploadArea');
+const fileInput = document.getElementById('fileInput');
+const saveButton = document.getElementById('saveButton');
+const tilesContainer = document.getElementById('tilesContainer');
+const uploadMessage = document.getElementById('uploadMessage');
+const searchInput = document.getElementById('searchInput');
+const searchResultsContainer = document.getElementById('searchResultsContainer');
+
+
+const tileOverlay = document.getElementById('tileOverlay');
+const tilePopup = document.getElementById('tilePopup');
+const popupTileTitle = document.getElementById('popupTileTitle');
+const tilePopupTag = document.getElementById('tilePopupTag');
+const popupTileContent = document.getElementById('popupTileContent');
+
+
+// Tile action buttons
+const shareBtn = document.getElementById('shareBtn');
+const deleteBtn = document.getElementById('deleteBtn');
+const favoriteBtn = document.getElementById('favoriteBtn');
+
+
+let selectedType = ''; // To keep track of the selected file type
+let fileBlob = null;   // To store the uploaded file
+let currentTile = null; // To keep track of the tile being viewed/edited
+
+
+// Open Plus Popup
+function openPlusPopup() {
+    plusOverlay.classList.add('open');
+    // Reset fields
+    tileTitle.value = '';
+    tileContent.value = '';
+    tileContent.style.display = 'none';
+    uploadArea.style.display = 'none';
+    saveButton.style.display = 'none';
+    selectedType = '';
+    fileBlob = null;
+}
+
+
+// Close Plus Popup when clicking outside
+plusOverlay.addEventListener('click', function(event) {
+    if (event.target === plusOverlay) {
+        plusOverlay.classList.remove('open');
+    }
+});
+
+
+function selectTxt() {
+    selectedType = 'text';
+    tileContent.style.display = 'block';
+    uploadArea.style.display = 'none';
+    saveButton.style.display = 'block';
+}
+
+
+function selectImg() {
+    selectedType = 'image';
+    setupUploadArea('image/*');
+    uploadMessage.textContent = 'Upload a picture';
+}
+
+
+function selectMov() {
+    selectedType = 'video';
+    setupUploadArea('video/*');
+    uploadMessage.textContent = 'Upload a video';
+}
+
+
+function setupUploadArea(accept) {
+    tileContent.style.display = 'none';
+    uploadArea.style.display = 'block';
+    saveButton.style.display = 'block';
+    fileInput.accept = accept;
+    fileInput.value = '';
+    fileBlob = null;
+}
+
+
+uploadArea.addEventListener('click', () => {
+    fileInput.click();
+});
+
+
+fileInput.addEventListener('change', () => {
+    if (fileInput.files.length > 0) {
+        handleFileUpload(fileInput.files[0]);
+    } else {
+        uploadMessage.textContent = selectedType === 'image' ? 'Upload a picture' : 'Upload a video';
+    }
+});
+
+
+function handleFileUpload(file) {
+    const reader = new FileReader();
+    reader.onload = function(event) {
+        fileBlob = new Blob([event.target.result], { type: file.type });
+        console.log('File loaded:', file.name);
+        uploadMessage.textContent = file.name;
+    };
+    reader.readAsArrayBuffer(file);
+}
+
+
+function saveTile() {
+    const title = tileTitle.value.trim();
+    if (!title) {
+        alert('Please enter a title.');
+        return;
+    }
+
+
+    if (selectedType === 'text') {
+        const content = tileContent.value.trim();
+        if (!content) {
+            alert('Please enter some text.');
+            return;
+        }
+        const data = {
+            title: title,
+            type: 'text',
+            content: content,
+            timestamp: new Date()
+        };
+        addTile(data);
+    } else if ((selectedType === 'image' || selectedType === 'video') && fileBlob) {
+        const data = {
+            title: title,
+            type: selectedType,
+            blob: fileBlob,
+            mimeType: fileBlob.type,
+            timestamp: new Date()
+        };
+        addTile(data);
+    } else {
+        alert('Please provide content for the tile.');
+        return;
+    }
+
+
+    plusOverlay.classList.remove('open');
+}
+
+
+function addTile(data) {
+    const transaction = db.transaction([storeName], 'readwrite');
+    const store = transaction.objectStore(storeName);
+    const request = store.add(data);
+
+
+    request.onsuccess = function() {
+        console.log('Tile added to the store:', request.result);
+        displayTiles(); // Update UI to reflect new tile
+    };
+
+
+    request.onerror = function(event) {
+        console.error('Error adding tile:', event.target.error.message);
+    };
+}
+
+
+function displayTiles() {
+    tilesContainer.innerHTML = ''; // Clear existing tiles
+    const transaction = db.transaction([storeName], 'readonly');
+    const store = transaction.objectStore(storeName);
+    const request = store.getAll();
+
+
+    request.onsuccess = function(event) {
+        let tiles = event.target.result;
+        const searchTerm = searchInput.value.toLowerCase();
+
+
+        if (searchTerm) {
+            searchResultsContainer.innerHTML = '';
+            searchResultsContainer.style.display = 'flex';
+            tiles = tiles.filter(tile => {
+                const titleMatch = tile.title.toLowerCase().includes(searchTerm);
+                const contentMatch = tile.content && tile.content.toLowerCase().includes(searchTerm);
+                return titleMatch || contentMatch;
+            });
+
+
+            // Prioritize tiles with title matches
+            tiles.sort((a, b) => {
+                const aTitleMatch = a.title.toLowerCase().includes(searchTerm) ? 1 : 0;
+                const bTitleMatch = b.title.toLowerCase().includes(searchTerm) ? 1 : 0;
+                return bTitleMatch - aTitleMatch;
+            });
+
+
+            tiles.forEach(tile => {
+                const tileDiv = createTileElement(tile);
+                searchResultsContainer.appendChild(tileDiv);
+            });
+            tilesContainer.style.display = 'none';
+        } else {
+            searchResultsContainer.style.display = 'none';
+            tilesContainer.style.display = 'flex';
+            tiles.forEach(tile => {
+                const tileDiv = createTileElement(tile);
+                tilesContainer.appendChild(tileDiv);
+            });
+        }
+    };
+
+
+    request.onerror = function(event) {
+        console.error('Error fetching tiles:', event.target.error.message);
+    };
+}
+
+
+function createTileElement(tile) {
+    const tileDiv = document.createElement('div');
+    tileDiv.classList.add('tile');
+    tileDiv.dataset.id = tile.id; // Store the tile ID for reference
+
+
+    const title = document.createElement('h3');
+    title.textContent = tile.title;
+    tileDiv.appendChild(title);
+
+
+    // Add tile type tag
+    const tileTag = document.createElement('div');
+    tileTag.classList.add('tile-tag');
+    tileTag.textContent = tile.type === 'text' ? 'txt' : tile.type === 'image' ? 'img' : 'mov';
+    tileDiv.appendChild(tileTag);
+
+
+    // Add click event to open tile popup
+    tileDiv.addEventListener('click', () => openTilePopup(tile));
+
+
+    return tileDiv;
+}
+
+
+// Open Tile Popup
+function openTilePopup(tile) {
+    currentTile = tile; // Store the current tile
+    tileOverlay.classList.add('open');
+    popupTileTitle.value = tile.title;
+    popupTileTitle.readOnly = false; // Allow editing
+
+
+    // Set tile tag
+    tilePopupTag.textContent = tile.type === 'text' ? 'txt' : tile.type === 'image' ? 'img' : 'mov';
+
+
+    // Clear previous content
+    popupTileContent.innerHTML = '';
+
+
+    // Display content based on type and make it editable
+    if (tile.type === 'text') {
+        const contentArea = document.createElement('textarea');
+        contentArea.value = tile.content;
+        contentArea.classList.add('popup-textarea');
+        contentArea.style.height = '300px'; // Make it bigger
+        contentArea.style.backgroundColor = '#333'; // Make it black
+        contentArea.style.resize = 'none'; // Fixed size
+        contentArea.style.overflowY = 'auto'; // Scrollable
+        popupTileContent.appendChild(contentArea);
+    } else if (tile.type === 'image' || tile.type === 'video') {
+        const fileContainer = document.createElement('div');
+        fileContainer.classList.add('file-container');
+
+
+        let mediaElement;
+        if (tile.type === 'image') {
+            mediaElement = document.createElement('img');
+            const imgURL = URL.createObjectURL(tile.blob);
+            mediaElement.src = imgURL;
+        } else {
+            mediaElement = document.createElement('video');
+            mediaElement.controls = true;
+            const videoURL = URL.createObjectURL(tile.blob);
+            mediaElement.src = videoURL;
+        }
+        mediaElement.style.maxWidth = '100%';
+        mediaElement.style.marginBottom = '10px';
+
+
+        // Replace Button
+        const replaceButton = document.createElement('button');
+        replaceButton.textContent = 'Replace';
+        replaceButton.classList.add('tile-action-btn');
+        replaceButton.style.padding = '5px 10px';
+        replaceButton.style.fontSize = '12px';
+        replaceButton.style.borderRadius = '5px';
+        replaceButton.style.alignSelf = 'flex-start'; // Align to left
+        replaceButton.addEventListener('click', () => replaceFile(tile.type));
+
+
+        fileContainer.appendChild(mediaElement);
+        fileContainer.appendChild(replaceButton);
+
+
+        popupTileContent.appendChild(fileContainer);
+    }
+}
+
+
+// Close Tile Popup when clicking outside
+tileOverlay.addEventListener('click', function(event) {
+    if (event.target === tileOverlay) {
+        if (validateTileContent()) {
+            saveTileChanges();
+            closeTilePopup();
+        }
+    }
+});
+
+
+function closeTilePopup() {
+    tileOverlay.classList.remove('open');
+}
+
+
+function validateTileContent() {
+    if (!currentTile.title.trim()) {
+        alert('Title cannot be empty.');
+        return false;
+    }
+    if (currentTile.type === 'text' && (!currentTile.content || !currentTile.content.trim())) {
+        alert('Content cannot be empty.');
+        return false;
+    }
+    if ((currentTile.type === 'image' || currentTile.type === 'video') && !currentTile.blob) {
+        alert('You must have an image or video.');
+        return false;
+    }
+    return true;
+}
+
+
+// Handle tile action buttons
+shareBtn.addEventListener('click', function() {
+    alert('Share functionality is not implemented yet.');
+});
+
+
+deleteBtn.addEventListener('click', function() {
+    if (confirm('Are you sure you want to delete this tile?')) {
+        deleteTile(currentTile.id);
+        closeTilePopup();
+    }
+});
+
+
+favoriteBtn.addEventListener('click', function() {
+    alert('Favorite functionality is not implemented yet.');
+});
+
+
+function deleteTile(id) {
+    const transaction = db.transaction([storeName], 'readwrite');
+    const store = transaction.objectStore(storeName);
+    const request = store.delete(id);
+
+
+    request.onsuccess = function() {
+        console.log('Tile deleted:', id);
+        displayTiles();
+    };
+
+
+    request.onerror = function(event) {
+        console.error('Error deleting tile:', event.target.error.message);
+    };
+}
+
+
+// Handle editing and saving changes in the tile popup
+tilePopup.addEventListener('input', function(event) {
+    if (event.target === popupTileTitle) {
+        // Title edited
+        currentTile.title = popupTileTitle.value;
+    } else if (event.target.tagName.toLowerCase() === 'textarea') {
+        // Content edited
+        currentTile.content = event.target.value;
+    }
+});
+
+
+function saveTileChanges() {
+    const transaction = db.transaction([storeName], 'readwrite');
+    const store = transaction.objectStore(storeName);
+    const request = store.put(currentTile);
+
+
+    request.onsuccess = function() {
+        console.log('Tile updated:', currentTile.id);
+        displayTiles();
+    };
+
+
+    request.onerror = function(event) {
+        console.error('Error updating tile:', event.target.error.message);
+    };
+}
+
+
+// Implement search functionality
+searchInput.addEventListener('input', function() {
+    displayTiles();
+});
+
+
+// Center search results
+searchResultsContainer.style.justifyContent = 'center';
+</script>
