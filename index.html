@@ -1,7 +1,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Vault</title>
-</head> 
+    <style>
+        /* Updated CSS will be included in the next section */
+    </style>
+</head>
 <body>
     <!-- Header Section -->
     <div class="header">
@@ -63,6 +66,8 @@
             </div>
             <!-- Tile Title -->
             <input type="text" id="popupTileTitle" class="popup-tile-title" readonly>
+            <!-- Replace Button (for image/video tiles) -->
+            <button class="tile-action-btn replace-btn" id="replaceBtn" style="display: none;">Replace</button>
             <!-- Tile Content -->
             <div id="popupTileContent"></div>
         </div>
@@ -74,6 +79,8 @@
         // Updated JavaScript code will be included in the next section
     </script>
 </body>
+</html>
+
 
 <script>
 let db;
