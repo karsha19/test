@@ -91,17 +91,19 @@ function openImgUpload(){
 </body>
 
 <script>
-       function createAndDownloadTile() {
-           const title = document.getElementById('tileTitle').value;
-           const content = document.getElementById('tileContent').value;
-           const blob = new Blob([content], { type: 'text/plain' });
-           const folder = 'vault_tiles';
-           const anchor = document.createElement('a');
-           anchor.download = `${folder}/${title}.txt`;
-           anchor.href = window.URL.createObjectURL(blob);
-           document.body.appendChild(anchor);
-           anchor.click();
-           document.body.removeChild(anchor);
-           closePopup();
+function createAndDownloadTile() {
+        const title = document.getElementById('tileTitle').value;
+        const content = document.getElementById('tileContent').value;
+        const blob = new Blob([content], { type: 'text/plain' });
+        const folder = 'vault_tiles';
+        const anchor = document.createElement('a');
+	anchor.download = `${folder}/${title}.txt`;
+	anchor.href = window.URL.createObjectURL(blob);
+	document.body.appendChild(anchor);
+        anchor.click();
+        document.body.removeChild(anchor);
+       // closePopup();
+       }
+
        }
 </script>
