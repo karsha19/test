@@ -41,6 +41,7 @@ body {
 		            </p>
 		            <p class="upload-hint">PNG, JPG, GIF up to 10MB</p>
 		            <img id="preview" class="preview" src="" alt="Uploaded image preview" style="display: none;">
+			    <button id="clear-button" class="clear-button" aria-label="Clear uploaded image">×</button>
 		        </div>
 		        <input type="file" id="file-input" accept="image/*" aria-hidden="true">
 		    </div>
@@ -135,7 +136,15 @@ function createAndDownloadTile() {
                     reader.readAsDataURL(file);
                 } else {
                     alert('Please upload an image file');
-                }
+		}
+            };
+	    const clearUpload = () => {
+                preview.src = '';
+                preview.style.display = 'none';
+                uploadIcon.style.display = 'block';
+                uploadText.style.display = 'block';
+                clearButton.style.display = 'none';
+                fileInput.value = '';
             };
             dropZone.addEventListener('dragover', (e) => {
                 e.preventDefault();
@@ -161,6 +170,12 @@ function createAndDownloadTile() {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
                     fileInput.click();
+                }
+            });
+	    clearButton.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    clearUpload();
                 }
             });
 	});
