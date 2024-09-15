@@ -30,7 +30,7 @@ h1{
   z-index: 4;
 }
 
-.Card {
+.Tile {
   margin-left: 10;
   margin-right: 10;
   background-color: rgba(225, 255, 255, 0.05); 
@@ -41,7 +41,7 @@ h1{
   backdrop-filter: blur(5px);
   z-index: 1;
 }
-.Card:Hover {
+.Tile:Hover {
   box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.2),
   -10px -10px 10px rgba(255, 255, 255, 0.01);
 }
