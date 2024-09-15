@@ -193,6 +193,7 @@ h1{
 .uploader {
   width: 100%;
   max-width: 400px;
+  display: none;
 }
 
 .drop-zone {
