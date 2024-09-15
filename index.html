@@ -1,332 +1,77 @@
-<link rel="stylesheet" href="style.css">
-<style>  
-body {  
-  background-image: url('image.png'); 
-  background-repeat: repeat; 
-  background-attachment: fixed; 
-} 
-</style>
-<script src="https://kit.fontawesome.com/db2d4e4bde.js" crossorigin="anonymous"></script>
-<body class = "head">
-	<input class = "search" type="text" required list ="Tile">
-	<datalist id="Tile">
-		<option value="Medical Info"></option>
-		<option value="Passwords"></option>
-		<option value="Bank account info"></option>
-		<option value="Adresse"></option>
-	</datalist> 
-	<button type = "button" class = "add-tile" onclick = "openPopup()">+</button>
-	<div class = "popup" id = "popup">
-		<input type="text" name = "title" required class="tile-name-input" id = "tileTitle">
-		<button type = "button" class = "hide" onclick = "closePopup()">x</button>
-		<form>
-			<div class = "File-Types">
-				<button class = "txt" type = "button" onclick = "openTxtInput()"> Txt </button>
-				<button class = "txt" type = "button" onclick = "openImgUpload()"> Img </button>
-				<button class = "txt" type = "button" onclick = "openImgUpload()"> Mov </button>
-			</div>
-			<textarea id="txtInput" name="data"  type="text" required class="txt-input" placeholder="Write something.."></textarea>
-		</form>
-		<div class="uploader" id = "uploader">
-		        <div id="drop-zone" class="drop-zone" tabindex="0" role="button" aria-label="Click or drag and drop to upload an image">
-		            <div id="upload-icon" class="upload-icon">
-		                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-		                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-		                    <polyline points="17 8 12 3 7 8"></polyline>
-		                    <line x1="12" y1="3" x2="12" y2="15"></line>
-		                </svg>
-		            </div>
-		            <p id="upload-text" class="upload-text">
-		                <span class="bold">Click to upload</span> or drag and drop
-		            </p>
-		            <p class="upload-hint">PNG, JPG, GIF up to 10MB</p>
-		            <img id="preview" class="preview" src="" alt="Uploaded image preview" style="display: none;">
-			    <button id="clear-button" class="clear-button" aria-label="Clear uploaded image">×</button>
-		        </div>
-		        <input type="file" id="file-input" accept="image/*" aria-hidden="true">
-		    </div>
-		<button type = "button" class = "done" onclick = "closePopup(); createAndDownloadTile()" id = "saveButton">Save</button>
-	</div>
-<script>
-var popup = document.getElementById("popup");
-var txtInput = document.getElementById("txtInput");
-var uploader = document.getElementById("uploader");
-var saveButton = document.getElementById("saveButton");
+<head>
+    <meta charset="UTF-8">
+    <title>Vault</title>
+</head>
+<body>
+    <!-- Header Section -->
+    <div class="header">
+        <h1 class="title">Vault</h1>
+        <div class="search-bar-container">
+            <input class="search" type="text" placeholder="Search tiles..." id="searchInput">
+        </div>
+    </div>
 
-function openPopup(){
-	popup.classList.add("open-popup");
-	saveButton.style.display = "none";
-}
-function closePopup(){
-	popup.classList.remove("open-popup");
-	uploader.style.display = "none";
-	txtInput.style.display = "none";
-	document.getElementById('tileTitle').value = '';
-        document.getElementById('txtInput').value = '';
-	saveButton.style.display = "none";
-}
-function openTxtInput(){
-	txtInput.style.display = "block";
-	uploader.style.display = "none";
-	saveButton.style.display = "block";
-}
-function openImgUpload(){
-	uploader.style.display = "block";
-	txtInput.style.display = "none";
-	saveButton.style.display = "block";
-}
-</script>
+
+    <!-- Plus Button and Popup -->
+    <div class="add-tile-container">
+        <button type="button" class="add-tile" onclick="openPlusPopup()">+</button>
+    </div>
+
+
+    <!-- Plus Popup -->
+    <div class="overlay" id="plusOverlay">
+        <div class="plus-popup" id="plusPopup">
+            <div class="popup-content">
+                <input type="text" id="tileTitle" required class="tile-name-input" placeholder="Enter title...">
+                <!-- Text Input Area -->
+                <textarea id="tileContent" class="txt-input" placeholder="Write something..."></textarea>
+                <!-- Image/Video Upload Area -->
+                <div id="uploadArea" class="upload-area">
+                    <p id="uploadMessage">Upload a picture</p>
+                    <input type="file" id="fileInput" class="hidden">
+                </div>
+                <div class="file-types">
+                    <button class="file-type-btn" type="button" onclick="selectTxt()">Txt</button>
+                    <button class="file-type-btn" type="button" onclick="selectImg()">Img</button>
+                    <button class="file-type-btn" type="button" onclick="selectMov()">Mov</button>
+                </div>
+                <!-- Save Button -->
+                <button id="saveButton" class="save-btn" onclick="saveTile()">Save</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Search Results Container -->
+    <div class="search-results-container" id="searchResultsContainer"></div>
+
+
+    <!-- Tiles Display Area -->
+    <div class="tiles-container" id="tilesContainer"></div>
+
+
+    <!-- Tile Menu Popup -->
+    <div class="overlay" id="tileOverlay">
+        <div class="tile-popup" id="tilePopup">
+            <!-- Tile Tag -->
+            <div class="tile-popup-tag" id="tilePopupTag"></div>
+            <!-- Action Buttons -->
+            <div class="tile-actions">
+                <button class="tile-action-btn" id="deleteBtn">Delete</button>
+                <button class="tile-action-btn" id="shareBtn">Share</button>
+                <button class="tile-action-btn" id="favoriteBtn">Favorite</button>
+            </div>
+            <!-- Tile Title -->
+            <input type="text" id="popupTileTitle" class="popup-tile-title" readonly>
+            <!-- Tile Content -->
+            <div id="popupTileContent"></div>
+        </div>
+    </div>
+
+
+    <!-- JavaScript for IndexedDB and Functionality -->
+    <script>
+        // Updated JavaScript code will be included in the next section
+    </script>
 </body>
-<body class = "main">
-	<div class = "flex">
-		<div class = "Scrollable">
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1> 
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1> 
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1> 
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1> 
-			</div>
-		</div>
-	</div>
-	<div class = "flex">
-		<div class = "Scrollable">
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1> 
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1> 
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1> 
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1> 
-			</div>
-		</div>
-	</div>
-	<div class = "flex">
-		<div class = "Scrollable">
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1> 
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1> 
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1>
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1> 
-			</div>
-			<div class="Tile">
-				<h1> Tile </h1> 
-			</div>
-		</div>
-	</div>
-</body>
-<script>
-function createAndDownloadTile() {
-	const title = document.getElementById('tileTitle').value;
-	const content = document.getElementById('tileContent').value;
-	const blob = new Blob([content], { type: 'text/plain' });
-	const folder = 'vault_tiles';
-	const anchor = document.createElement('a');
-	anchor.download = `${folder}/${title}.txt`;
-	anchor.href = window.URL.createObjectURL(blob);
-	document.body.appendChild(anchor);
-	anchor.click();
-	document.body.removeChild(anchor);
-	}
-
-document.addEventListener('DOMContentLoaded', () => {
-    const dropZone = document.getElementById('drop-zone');
-    const fileInput = document.getElementById('file-input');
-    const uploadIcon = document.getElementById('upload-icon');
-    const uploadText = document.getElementById('upload-text');
-    const preview = document.getElementById('preview');
-    const clearButton = document.getElementById('clear-button');
-
-    const handleFile = (file) => {
-	if (file.type.startsWith('image/')) {
-	    const reader = new FileReader();
-	    reader.onload = (e) => {
-		preview.src = e.target.result;
-		preview.style.display = 'block';
-		uploadIcon.style.display = 'none';
-		uploadText.style.display = 'none';
-		clearButton.style.display = 'block';
-	    };
-	    reader.readAsDataURL(file);
-	} else {
-	    alert('Please upload an image file');
-	}
-    };
-
-    const clearUpload = () => {
-	preview.src = '';
-	preview.style.display = 'none';
-	uploadIcon.style.display = 'block';
-	uploadText.style.display = 'block';
-	clearButton.style.display = 'none';
-	fileInput.value = '';
-    };
-
-    dropZone.addEventListener('dragover', (e) => {
-	e.preventDefault();
-	dropZone.classList.add('dragover');
-    });
-
-    dropZone.addEventListener('dragleave', () => {
-	dropZone.classList.remove('dragover');
-    });
-
-    dropZone.addEventListener('drop', (e) => {
-	e.preventDefault();
-	dropZone.classList.remove('dragover');
-	const file = e.dataTransfer.files[0];
-	handleFile(file);
-    });
-
-    dropZone.addEventListener('click', (e) => {
-	if (e.target !== clearButton) {
-	    fileInput.click();
-	}
-    });
-
-    fileInput.addEventListener('change', (e) => {
-	const file = e.target.files[0];
-	handleFile(file);
-    });
-
-    clearButton.addEventListener('click', (e) => {
-	e.stopPropagation();
-	clearUpload();
-    });
-
-    // Keyboard accessibility
-    dropZone.addEventListener('keydown', (e) => {
-	if (e.key === 'Enter' || e.key === ' ') {
-	    e.preventDefault();
-	    fileInput.click();
-	}
-    });
-
-    clearButton.addEventListener('keydown', (e) => {
-	if (e.key === 'Enter' || e.key === ' ') {
-	    e.preventDefault();
-	    clearUpload();
-	}
-    });
-});
-</script>
+</html>
