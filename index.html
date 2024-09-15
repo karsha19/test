@@ -106,77 +106,96 @@ function openImgUpload(){
 </body>
 <script>
 function createAndDownloadTile() {
-        const title = document.getElementById('tileTitle').value;
-        const content = document.getElementById('tileContent').value;
-        const blob = new Blob([content], { type: 'text/plain' });
-        const folder = 'vault_tiles';
-        const anchor = document.createElement('a');
+	const title = document.getElementById('tileTitle').value;
+	const content = document.getElementById('tileContent').value;
+	const blob = new Blob([content], { type: 'text/plain' });
+	const folder = 'vault_tiles';
+	const anchor = document.createElement('a');
 	anchor.download = `${folder}/${title}.txt`;
 	anchor.href = window.URL.createObjectURL(blob);
 	document.body.appendChild(anchor);
-        anchor.click();
-        document.body.removeChild(anchor);
-       }
+	anchor.click();
+	document.body.removeChild(anchor);
+	}
 
-       document.addEventListener('DOMContentLoaded', () => {
-            const dropZone = document.getElementById('drop-zone');
-            const fileInput = document.getElementById('file-input');
-            const uploadIcon = document.getElementById('upload-icon');
-            const uploadText = document.getElementById('upload-text');
-            const preview = document.getElementById('preview');
-            const handleFile = (file) => {
-                if (file.type.startsWith('image/')) {
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        preview.src = e.target.result;
-                        preview.style.display = 'block';
-                        uploadIcon.style.display = 'none';
-                        uploadText.style.display = 'none';
-                    };
-                    reader.readAsDataURL(file);
-                } else {
-                    alert('Please upload an image file');
-		}
-            };
-	    const clearUpload = () => {
-                preview.src = '';
-                preview.style.display = 'none';
-                uploadIcon.style.display = 'block';
-                uploadText.style.display = 'block';
-                clearButton.style.display = 'none';
-                fileInput.value = '';
-            };
-            dropZone.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                dropZone.classList.add('dragover');
-            });
-            dropZone.addEventListener('dragleave', () => {
-                dropZone.classList.remove('dragover');
-            });
-            dropZone.addEventListener('drop', (e) => {
-                e.preventDefault();
-                dropZone.classList.remove('dragover');
-                const file = e.dataTransfer.files[0];
-                handleFile(file);
-            });
-            dropZone.addEventListener('click', () => {
-                fileInput.click();
-            });
-            fileInput.addEventListener('change', (e) => {
-                const file = e.target.files[0];
-                handleFile(file);
-            });
-	    dropZone.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    fileInput.click();
-                }
-            });
-	    clearButton.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    clearUpload();
-                }
-            });
-	});
+document.addEventListener('DOMContentLoaded', () => {
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('file-input');
+    const uploadIcon = document.getElementById('upload-icon');
+    const uploadText = document.getElementById('upload-text');
+    const preview = document.getElementById('preview');
+    const clearButton = document.getElementById('clear-button');
+
+    const handleFile = (file) => {
+	if (file.type.startsWith('image/')) {
+	    const reader = new FileReader();
+	    reader.onload = (e) => {
+		preview.src = e.target.result;
+		preview.style.display = 'block';
+		uploadIcon.style.display = 'none';
+		uploadText.style.display = 'none';
+		clearButton.style.display = 'block';
+	    };
+	    reader.readAsDataURL(file);
+	} else {
+	    alert('Please upload an image file');
+	}
+    };
+
+    const clearUpload = () => {
+	preview.src = '';
+	preview.style.display = 'none';
+	uploadIcon.style.display = 'block';
+	uploadText.style.display = 'block';
+	clearButton.style.display = 'none';
+	fileInput.value = '';
+    };
+
+    dropZone.addEventListener('dragover', (e) => {
+	e.preventDefault();
+	dropZone.classList.add('dragover');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+	dropZone.classList.remove('dragover');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+	e.preventDefault();
+	dropZone.classList.remove('dragover');
+	const file = e.dataTransfer.files[0];
+	handleFile(file);
+    });
+
+    dropZone.addEventListener('click', (e) => {
+	if (e.target !== clearButton) {
+	    fileInput.click();
+	}
+    });
+
+    fileInput.addEventListener('change', (e) => {
+	const file = e.target.files[0];
+	handleFile(file);
+    });
+
+    clearButton.addEventListener('click', (e) => {
+	e.stopPropagation();
+	clearUpload();
+    });
+
+    // Keyboard accessibility
+    dropZone.addEventListener('keydown', (e) => {
+	if (e.key === 'Enter' || e.key === ' ') {
+	    e.preventDefault();
+	    fileInput.click();
+	}
+    });
+
+    clearButton.addEventListener('keydown', (e) => {
+	if (e.key === 'Enter' || e.key === ' ') {
+	    e.preventDefault();
+	    clearUpload();
+	}
+    });
+});
 </script>
