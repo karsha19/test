@@ -83,7 +83,7 @@
 
 
 <script>
-let db;
+    let db;
 const dbName = 'vaultDB';
 const storeName = 'tiles';
 
@@ -135,6 +135,7 @@ const tilePopup = document.getElementById('tilePopup');
 const popupTileTitle = document.getElementById('popupTileTitle');
 const tilePopupTag = document.getElementById('tilePopupTag');
 const popupTileContent = document.getElementById('popupTileContent');
+const replaceBtn = document.getElementById('replaceBtn');
 
 
 // Tile action buttons
@@ -377,21 +378,32 @@ function openTilePopup(tile) {
 
     // Clear previous content
     popupTileContent.innerHTML = '';
+    replaceBtn.style.display = 'none'; // Hide replace button by default
 
 
     // Display content based on type and make it editable
     if (tile.type === 'text') {
         const contentArea = document.createElement('textarea');
         contentArea.value = tile.content;
-        contentArea.classList.add('popup-textarea');
-        contentArea.style.height = '300px'; // Make it bigger
-        contentArea.style.backgroundColor = '#333'; // Make it black
+        contentArea.style.width = '100%';
+        contentArea.style.height = '200px'; // Reduce vertical size
+        contentArea.style.backgroundColor = '#333'; // Match background color
+        contentArea.style.color = '#fff'; // Text color white
+        contentArea.style.border = '1px solid #555';
+        contentArea.style.borderRadius = '5px';
+        contentArea.style.padding = '10px';
         contentArea.style.resize = 'none'; // Fixed size
         contentArea.style.overflowY = 'auto'; // Scrollable
+        contentArea.style.boxSizing = 'border-box';
         popupTileContent.appendChild(contentArea);
     } else if (tile.type === 'image' || tile.type === 'video') {
-        const fileContainer = document.createElement('div');
-        fileContainer.classList.add('file-container');
+        // Show replace button between title and media
+        replaceBtn.style.display = 'block';
+        replaceBtn.onclick = () => replaceFile(tile.type);
+
+
+        const mediaContainer = document.createElement('div');
+        mediaContainer.classList.add('file-container');
 
 
         let mediaElement;
@@ -409,23 +421,31 @@ function openTilePopup(tile) {
         mediaElement.style.marginBottom = '10px';
 
 
-        // Replace Button
-        const replaceButton = document.createElement('button');
-        replaceButton.textContent = 'Replace';
-        replaceButton.classList.add('tile-action-btn');
-        replaceButton.style.padding = '5px 10px';
-        replaceButton.style.fontSize = '12px';
-        replaceButton.style.borderRadius = '5px';
-        replaceButton.style.alignSelf = 'flex-start'; // Align to left
-        replaceButton.addEventListener('click', () => replaceFile(tile.type));
-
-
-        fileContainer.appendChild(mediaElement);
-        fileContainer.appendChild(replaceButton);
-
-
-        popupTileContent.appendChild(fileContainer);
+        mediaContainer.appendChild(mediaElement);
+        popupTileContent.appendChild(mediaContainer);
     }
+}
+
+
+// Replace file function
+function replaceFile(type) {
+    const acceptType = type === 'image' ? 'image/*' : 'video/*';
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = acceptType;
+    input.onchange = () => {
+        if (input.files.length > 0) {
+            const file = input.files[0];
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                currentTile.blob = new Blob([event.target.result], { type: file.type });
+                currentTile.mimeType = file.type;
+                openTilePopup(currentTile); // Refresh the popup content
+            };
+            reader.readAsArrayBuffer(file);
+        }
+    };
+    input.click();
 }
 
 
@@ -537,10 +557,10 @@ searchInput.addEventListener('input', function() {
 
 // Center search results
 searchResultsContainer.style.justifyContent = 'center';
+
 </script>
 <style>
-    
-body {
+    body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
@@ -654,13 +674,14 @@ body {
     border-radius: 5px;
     color: #fff;
     box-sizing: border-box;
-    width: 80%;
-    height: 150px;
-    resize: none;
-    overflow-y: auto;
 }
 
 
+.popup-content textarea {
+    height: 150px;
+    resize: none; /* Fixed size */
+    overflow-y: auto; /* Scroll vertically */
+}
 
 
 /* File Types Buttons */
@@ -845,11 +866,30 @@ body {
 }
 
 
+/* Replace Button (for image/video tiles) */
+.replace-btn {
+    display: none; /* Will be displayed for image/video tiles */
+    margin-bottom: 15px;
+    background-color: #007BFF;
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+}
+
+
+.replace-btn:hover {
+    background-color: #0056b3;
+}
+
+
 /* Tile Title */
 .popup-tile-title {
     width: 100%;
     padding: 10px;
-    margin: 60px 0 15px 0; /* Adjust margin to make room for buttons and tag */
+    margin-top: 50px; /* Reduce margin-top to raise the title textbox */
+    margin-bottom: 15px;
     background-color: #333;
     border: 1px solid #555;
     border-radius: 10px; /* More rounded */
@@ -863,24 +903,24 @@ body {
 /* Tile Content */
 .popup-tile-content textarea {
     width: 100%;
-    height: 300px;
+    height: 200px; /* Reduce vertical size */
     padding: 10px;
     background-color: #333;
     border: 1px solid #555;
     border-radius: 5px;
-    color: #fff;
+    color: #fff; /* Text color white */
     font-size: 16px;
     box-sizing: border-box;
     resize: none; /* Fixed size */
     overflow-y: auto; /* Scroll vertically */
 }
- 
+
 
 /* File Container */
 .file-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     margin-bottom: 15px;
 }
 
@@ -889,14 +929,6 @@ body {
 .file-container video {
     max-width: 100%;
     margin-bottom: 10px;
-}
-
-
-.file-container .tile-action-btn {
-    padding: 5px 10px;
-    font-size: 12px;
-    border-radius: 5px;
-    align-self: flex-start;
 }
 
 </style>
