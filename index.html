@@ -23,7 +23,7 @@ body {
 			<div class = "File-Types">
 				<button class = "txt" type = "button" onclick = "openTxtInput()"> Txt </button>
 				<button class = "txt" type = "button" onclick = "openImgUpload()"> Img </button>
-				<button class = "txt" type = "button" onclick = "openTxtInput()"> Mov </button>
+				<button class = "txt" type = "button" onclick = "openImgInput()"> Mov </button>
 			</div>
 			<textarea id="txtInput" name="data"  type="text" required class="txt-input" placeholder="Write something.."></textarea>
 		</form>
@@ -49,7 +49,7 @@ body {
 <script>
 var popup = document.getElementById("popup");
 var txtInput = document.getElementById("txtInput");
-var imgUpload = document.getElementById("uploader");
+var uploader = document.getElementById("uploader");
 var saveButton = document.getElementById("saveButton");
 
 function openPopup(){
