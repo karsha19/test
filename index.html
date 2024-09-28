@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -185,7 +186,7 @@
 
 /* Save Button */
 .save-btn {
-    display: block;
+    display: none;
     width: 100%;
     padding: 10px;
     background-color: #007BFF;
@@ -193,7 +194,6 @@
     border-radius: 8px;
     color: #fff;
     cursor: pointer;
-    margin-top: 15px;
 }
 
 
@@ -204,13 +204,13 @@
 
 /* Upload Area */
 .upload-area {
-    display: none;
+    display: block; /* Temporarily force display */
     width: 100%;
     height: 150px;
     border: 2px dashed #555;
     border-radius: 5px;
     background-color: #333;
-    color: #fff;
+    color: #ffffff;
     text-align: center;
     padding: 20px;
     cursor: pointer;
@@ -444,12 +444,6 @@
 }
 
 
-/* Ensure tiles are stacked in columns of two */
-.selected-tiles-container .tile {
-    flex: 0 0 calc(50% - 10px);
-}
-
-
 /* Tile Selection Popup */
 .tile-selection-popup {
     background-color: #222;
@@ -656,7 +650,6 @@
             <div class="tile-selection-container" id="tileSelectionContainer">
                 <!-- Tiles will be displayed here -->
             </div>
-            <!-- Save Button -->
             <button class="save-btn" id="addTilesToCardButton" onclick="addSelectedTilesToCard()">Add Selected Tiles</button>
         </div>
     </div>
