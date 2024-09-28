@@ -501,6 +501,79 @@
     word-wrap: break-word;
 }
 
+
+/* Adjusted Search Bar in Tile Selection Popup */
+.tile-selection-popup .search {
+    width: 300px;
+}
+
+
+/* Main Menu Cards */
+.cards-container {
+    margin: 20px;
+}
+
+
+.card {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 30px;
+}
+
+
+.card-image {
+    width: 150px;
+    height: 100px;
+    background-color: #333;
+    background-size: cover;
+    background-position: center;
+    border-radius: 5px;
+    margin-right: 20px;
+}
+
+
+.card-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+
+.card-tiles-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+}
+
+
+.card-tiles-container .tile {
+    flex: 0 0 auto;
+}
+
+
+/* Scrollbar Styling */
+.card-tiles-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+
+.card-tiles-container::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 4px;
+}
+
+
+.all-tiles-section {
+    margin: 20px;
+    margin-top: 50px;
+}
+
+
+.all-tiles-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+
     </style>
 </head>
 <body>
@@ -581,12 +654,19 @@
     </div>
 
 
-    <!-- Search Results Container -->
-    <div class="search-results-container" id="searchResultsContainer"></div>
+    <!-- Cards Display Area -->
+    <div class="cards-container" id="cardsContainer">
+        <!-- Cards will be displayed here -->
+    </div>
 
 
-    <!-- Tiles Display Area -->
-    <div class="tiles-container" id="tilesContainer"></div>
+    <!-- All Tiles Section -->
+    <div class="all-tiles-section">
+        <h2 class="all-tiles-title">All Tiles</h2>
+        <div class="search-results-container" id="searchResultsContainer"></div>
+        <!-- Tiles Display Area -->
+        <div class="tiles-container" id="tilesContainer"></div>
+    </div>
 
 
     <!-- Tile Menu Popup -->
@@ -637,6 +717,7 @@ function openDB() {
         db = event.target.result;
         console.log('Database opened successfully.');
         displayTiles(); // Load tiles when DB is ready
+        displayCards(); // Load cards
     };
 
 
@@ -691,6 +772,10 @@ const tileSelectionOverlay = document.getElementById('tileSelectionOverlay');
 const tileSelectionPopup = document.getElementById('tileSelectionPopup');
 const tileSelectionContainer = document.getElementById('tileSelectionContainer');
 const tileSelectionSearchInput = document.getElementById('tileSelectionSearchInput');
+
+
+// Cards Container
+const cardsContainer = document.getElementById('cardsContainer');
 
 
 let selectedType = ''; // To keep track of the selected file type
@@ -1230,6 +1315,11 @@ function displayTileSelectionTiles() {
                 }
             });
 
+            // Double-click to open tile
+            tileDiv.addEventListener('dblclick', () => {
+                openTilePopup(tile);
+            });
+
             tileSelectionContainer.appendChild(tileDiv);
         });
     };
@@ -1335,11 +1425,76 @@ function addCard(data) {
 
     request.onsuccess = function() {
         console.log('Card added to the store:', request.result);
-        // We don't need to display cards yet, as per your instruction
+        displayCards();
     };
 
     request.onerror = function(event) {
         console.error('Error adding card:', event.target.error.message);
+    };
+}
+
+
+// Display Cards on Main Menu
+function displayCards() {
+    cardsContainer.innerHTML = '';
+    const transaction = db.transaction(['cards'], 'readonly');
+    const store = transaction.objectStore('cards');
+    const request = store.getAll();
+
+    request.onsuccess = function(event) {
+        const cards = event.target.result;
+
+        cards.forEach(card => {
+            const cardDiv = document.createElement('div');
+            cardDiv.classList.add('card');
+
+            // Card Image
+            const cardImageDiv = document.createElement('div');
+            cardImageDiv.classList.add('card-image');
+            const imgURL = URL.createObjectURL(card.imageBlob);
+            cardImageDiv.style.backgroundImage = `url('${imgURL}')`;
+            cardDiv.appendChild(cardImageDiv);
+
+            // Card Content
+            const cardContentDiv = document.createElement('div');
+            cardContentDiv.style.flexGrow = '1';
+
+            const cardTitle = document.createElement('h3');
+            cardTitle.classList.add('card-title');
+            cardTitle.textContent = card.title;
+            cardContentDiv.appendChild(cardTitle);
+
+            const cardTilesContainer = document.createElement('div');
+            cardTilesContainer.classList.add('card-tiles-container');
+
+            // Fetch tiles for this card
+            const transaction = db.transaction([storeName], 'readonly');
+            const store = transaction.objectStore(storeName);
+            const request = store.getAll();
+
+            request.onsuccess = function(event) {
+                const tiles = event.target.result;
+                const cardTiles = tiles.filter(tile => card.tiles.includes(tile.id));
+
+                cardTiles.forEach(tile => {
+                    const tileDiv = createTileElement(tile);
+                    cardTilesContainer.appendChild(tileDiv);
+                });
+            };
+
+            request.onerror = function(event) {
+                console.error('Error fetching tiles for card:', event.target.error.message);
+            };
+
+            cardContentDiv.appendChild(cardTilesContainer);
+            cardDiv.appendChild(cardContentDiv);
+
+            cardsContainer.appendChild(cardDiv);
+        });
+    };
+
+    request.onerror = function(event) {
+        console.error('Error fetching cards:', event.target.error.message);
     };
 }
 
