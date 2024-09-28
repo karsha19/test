@@ -110,6 +110,35 @@
 }
 
 
+/* Popup Type Selection */
+.popup-type-selection {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+    gap: 10px;
+}
+
+
+.popup-type-btn {
+    padding: 10px 20px;
+    background-color: #444;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+}
+
+
+.popup-type-btn.active {
+    background-color: #666;
+}
+
+
+.popup-type-btn:hover {
+    background-color: #666;
+}
+
+
 .popup-content input,
 .popup-content textarea {
     width: 100%;
@@ -376,6 +405,102 @@
     max-width: 100%;
     margin-bottom: 10px;
 }
+
+
+/* New Card Form Styles */
+.add-tiles-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+
+.add-tiles-plus {
+    border: 2px dashed #555;
+    width: 100%;
+    height: 50px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 30px;
+    line-height: 50px;
+    text-align: center;
+    cursor: pointer;
+}
+
+
+.add-tiles-plus:hover {
+    background-color: #333;
+}
+
+
+.selected-tiles-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+
+/* Tile Selection Popup */
+.tile-selection-popup {
+    background-color: #222;
+    padding: 20px;
+    border-radius: 10px;
+    width: 600px;
+    max-height: 80%;
+    overflow-y: auto;
+    box-sizing: border-box;
+    color: #fff;
+    text-align: center;
+    position: relative;
+}
+
+
+.tile-selection-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+
+.tile-selection-tile {
+    position: relative;
+    border: 1px solid #555;
+    width: 120px;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+
+.tile-selection-tile.selected {
+    border-color: #007BFF;
+}
+
+
+.tile-selection-tile h3 {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    margin: 0;
+    font-size: 14px;
+    width: calc(100% - 10px);
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+}
+
     </style>
 </head>
 <body>
@@ -397,23 +522,61 @@
     <!-- Plus Popup -->
     <div class="overlay" id="plusOverlay">
         <div class="plus-popup" id="plusPopup">
-            <div class="popup-content">
-                <input type="text" id="tileTitle" required class="tile-name-input" placeholder="Enter title...">
-                <!-- Text Input Area -->
-                <textarea id="tileContent" class="txt-input" placeholder="Write something..."></textarea>
-                <!-- Image/Video Upload Area -->
-                <div id="uploadArea" class="upload-area">
-                    <p id="uploadMessage">Upload a picture</p>
-                    <input type="file" id="fileInput" class="hidden">
-                </div>
-                <div class="file-types">
-                    <button class="file-type-btn" type="button" onclick="selectTxt()">Txt</button>
-                    <button class="file-type-btn" type="button" onclick="selectImg()">Img</button>
-                    <button class="file-type-btn" type="button" onclick="selectMov()">Mov</button>
-                </div>
-                <!-- Save Button -->
-                <button id="saveButton" class="save-btn" onclick="saveTile()">Save</button>
+            <div class="popup-type-selection">
+                <button class="popup-type-btn" id="newTileBtn" onclick="selectNewTile()">New Tile</button>
+                <button class="popup-type-btn" id="newCardBtn" onclick="selectNewCard()">New Card</button>
             </div>
+            <div class="popup-content">
+                <!-- New Tile Form -->
+                <div id="newTileForm">
+                    <input type="text" id="tileTitle" required class="tile-name-input" placeholder="Enter title...">
+                    <!-- Text Input Area -->
+                    <textarea id="tileContent" class="txt-input" placeholder="Write something..."></textarea>
+                    <!-- Image/Video Upload Area -->
+                    <div id="uploadArea" class="upload-area">
+                        <p id="uploadMessage">Upload a picture</p>
+                        <input type="file" id="fileInput" class="hidden">
+                    </div>
+                    <div class="file-types">
+                        <button class="file-type-btn" type="button" onclick="selectTxt()">Txt</button>
+                        <button class="file-type-btn" type="button" onclick="selectImg()">Img</button>
+                        <button class="file-type-btn" type="button" onclick="selectMov()">Mov</button>
+                    </div>
+                    <!-- Save Button -->
+                    <button id="saveButton" class="save-btn" onclick="saveTile()">Save</button>
+                </div>
+                <!-- New Card Form -->
+                <div id="newCardForm" style="display:none;">
+                    <input type="text" id="cardTitle" required class="tile-name-input" placeholder="Enter card title...">
+                    <!-- Image Upload Area -->
+                    <div id="cardImageUploadArea" class="upload-area">
+                        <p id="cardImageUploadMessage">Upload a background picture</p>
+                        <input type="file" id="cardImageInput" class="hidden" accept="image/*">
+                    </div>
+                    <!-- Add Tiles Area -->
+                    <div class="add-tiles-container">
+                        <div class="add-tiles-plus" onclick="openTileSelectionPopup()">+</div>
+                    </div>
+                    <!-- Selected Tiles Display -->
+                    <div class="selected-tiles-container" id="selectedTilesContainer">
+                        <!-- Tiles will be displayed here -->
+                    </div>
+                    <!-- Save Button -->
+                    <button id="saveCardButton" class="save-btn" onclick="saveCard()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Tile Selection Popup -->
+    <div class="overlay" id="tileSelectionOverlay">
+        <div class="tile-selection-popup" id="tileSelectionPopup">
+            <input class="search" type="text" placeholder="Search tiles..." id="tileSelectionSearchInput">
+            <div class="tile-selection-container" id="tileSelectionContainer">
+                <!-- Tiles will be displayed here -->
+            </div>
+            <button class="save-btn" id="addTilesToCardButton" onclick="addSelectedTilesToCard()">Add Selected Tiles</button>
         </div>
     </div>
 
@@ -464,6 +627,9 @@ function openDB() {
         if (!db.objectStoreNames.contains(storeName)) {
             db.createObjectStore(storeName, { keyPath: 'id', autoIncrement: true });
         }
+        if (!db.objectStoreNames.contains('cards')) {
+            db.createObjectStore('cards', { keyPath: 'id', autoIncrement: true });
+        }
     };
 
 
@@ -511,9 +677,27 @@ const deleteBtn = document.getElementById('deleteBtn');
 const favoriteBtn = document.getElementById('favoriteBtn');
 
 
+// New Card Form Elements
+const cardTitle = document.getElementById('cardTitle');
+const cardImageUploadArea = document.getElementById('cardImageUploadArea');
+const cardImageUploadMessage = document.getElementById('cardImageUploadMessage');
+const cardImageInput = document.getElementById('cardImageInput');
+const saveCardButton = document.getElementById('saveCardButton');
+const selectedTilesContainer = document.getElementById('selectedTilesContainer');
+
+
+// Tile Selection Popup Elements
+const tileSelectionOverlay = document.getElementById('tileSelectionOverlay');
+const tileSelectionPopup = document.getElementById('tileSelectionPopup');
+const tileSelectionContainer = document.getElementById('tileSelectionContainer');
+const tileSelectionSearchInput = document.getElementById('tileSelectionSearchInput');
+
+
 let selectedType = ''; // To keep track of the selected file type
 let fileBlob = null;   // To store the uploaded file
 let currentTile = null; // To keep track of the tile being viewed/edited
+let cardImageBlob = null; // To store the uploaded card image
+let selectedTileIds = []; // To store selected tile IDs for the card
 
 
 // Open Plus Popup
@@ -527,6 +711,14 @@ function openPlusPopup() {
     saveButton.style.display = 'none';
     selectedType = '';
     fileBlob = null;
+
+    cardTitle.value = '';
+    cardImageUploadMessage.textContent = 'Upload a background picture';
+    cardImageBlob = null;
+    selectedTileIds = [];
+    selectedTilesContainer.innerHTML = '';
+
+    selectNewTile(); // Default to 'New Tile'
 }
 
 
@@ -538,6 +730,27 @@ plusOverlay.addEventListener('click', function(event) {
 });
 
 
+// Select New Tile Form
+function selectNewTile() {
+    document.getElementById('newTileForm').style.display = 'block';
+    document.getElementById('newCardForm').style.display = 'none';
+    // Update button styles to indicate selection
+    document.getElementById('newTileBtn').classList.add('active');
+    document.getElementById('newCardBtn').classList.remove('active');
+}
+
+
+// Select New Card Form
+function selectNewCard() {
+    document.getElementById('newTileForm').style.display = 'none';
+    document.getElementById('newCardForm').style.display = 'block';
+    // Update button styles to indicate selection
+    document.getElementById('newTileBtn').classList.remove('active');
+    document.getElementById('newCardBtn').classList.add('active');
+}
+
+
+// Tile Type Selection Functions
 function selectTxt() {
     selectedType = 'text';
     tileContent.style.display = 'block';
@@ -924,6 +1137,211 @@ searchInput.addEventListener('input', function() {
 
 // Center search results
 searchResultsContainer.style.justifyContent = 'center';
+
+
+// Card Image Upload Handling
+cardImageUploadArea.addEventListener('click', () => {
+    cardImageInput.click();
+});
+
+
+cardImageInput.addEventListener('change', () => {
+    if (cardImageInput.files.length > 0) {
+        handleCardImageUpload(cardImageInput.files[0]);
+    } else {
+        cardImageUploadMessage.textContent = 'Upload a background picture';
+    }
+});
+
+
+function handleCardImageUpload(file) {
+    const reader = new FileReader();
+    reader.onload = function(event) {
+        cardImageBlob = new Blob([event.target.result], { type: file.type });
+        console.log('Card image loaded:', file.name);
+        cardImageUploadMessage.textContent = file.name;
+    };
+    reader.readAsArrayBuffer(file);
+}
+
+
+// Open Tile Selection Popup
+function openTileSelectionPopup() {
+    tileSelectionOverlay.classList.add('open');
+    tileSelectionSearchInput.value = '';
+    displayTileSelectionTiles();
+}
+
+
+// Close Tile Selection Popup when clicking outside
+tileSelectionOverlay.addEventListener('click', function(event) {
+    if (event.target === tileSelectionOverlay) {
+        tileSelectionOverlay.classList.remove('open');
+    }
+});
+
+
+// Display Tiles in Tile Selection Popup
+function displayTileSelectionTiles() {
+    tileSelectionContainer.innerHTML = '';
+    const transaction = db.transaction([storeName], 'readonly');
+    const store = transaction.objectStore(storeName);
+    const request = store.getAll();
+
+    request.onsuccess = function(event) {
+        let tiles = event.target.result;
+        const searchTerm = tileSelectionSearchInput.value.toLowerCase();
+
+        if (searchTerm) {
+            tiles = tiles.filter(tile => {
+                const titleMatch = tile.title.toLowerCase().includes(searchTerm);
+                const contentMatch = tile.content && tile.content.toLowerCase().includes(searchTerm);
+                return titleMatch || contentMatch;
+            });
+        }
+
+        tiles.forEach(tile => {
+            const tileDiv = document.createElement('div');
+            tileDiv.classList.add('tile-selection-tile');
+            tileDiv.dataset.id = tile.id;
+
+            if (selectedTileIds.includes(tile.id)) {
+                tileDiv.classList.add('selected');
+            }
+
+            const title = document.createElement('h3');
+            title.textContent = tile.title;
+            tileDiv.appendChild(title);
+
+            // Add tile type tag
+            const tileTag = document.createElement('div');
+            tileTag.classList.add('tile-tag');
+            tileTag.textContent = tile.type === 'text' ? 'txt' : tile.type === 'image' ? 'img' : 'mov';
+            tileDiv.appendChild(tileTag);
+
+            // Handle selection
+            tileDiv.addEventListener('click', () => {
+                if (selectedTileIds.includes(tile.id)) {
+                    selectedTileIds = selectedTileIds.filter(id => id !== tile.id);
+                    tileDiv.classList.remove('selected');
+                } else {
+                    selectedTileIds.push(tile.id);
+                    tileDiv.classList.add('selected');
+                }
+            });
+
+            tileSelectionContainer.appendChild(tileDiv);
+        });
+    };
+
+    request.onerror = function(event) {
+        console.error('Error fetching tiles:', event.target.error.message);
+    };
+}
+
+
+// Search in Tile Selection Popup
+tileSelectionSearchInput.addEventListener('input', function() {
+    displayTileSelectionTiles();
+});
+
+
+// Add Selected Tiles to Card
+function addSelectedTilesToCard() {
+    tileSelectionOverlay.classList.remove('open');
+    displaySelectedTiles();
+}
+
+
+// Display Selected Tiles in Card Form
+function displaySelectedTiles() {
+    selectedTilesContainer.innerHTML = '';
+    if (selectedTileIds.length === 0) {
+        return;
+    }
+
+    const transaction = db.transaction([storeName], 'readonly');
+    const store = transaction.objectStore(storeName);
+    const request = store.getAll();
+
+    request.onsuccess = function(event) {
+        const tiles = event.target.result;
+        const selectedTiles = tiles.filter(tile => selectedTileIds.includes(tile.id));
+
+        selectedTiles.forEach((tile, index) => {
+            const tileDiv = document.createElement('div');
+            tileDiv.classList.add('tile');
+            tileDiv.dataset.id = tile.id;
+
+            const title = document.createElement('h3');
+            title.textContent = tile.title;
+            tileDiv.appendChild(title);
+
+            // Add tile type tag
+            const tileTag = document.createElement('div');
+            tileTag.classList.add('tile-tag');
+            tileTag.textContent = tile.type === 'text' ? 'txt' : tile.type === 'image' ? 'img' : 'mov';
+            tileDiv.appendChild(tileTag);
+
+            // Add click event to open tile popup
+            tileDiv.addEventListener('click', () => openTilePopup(tile));
+
+            selectedTilesContainer.appendChild(tileDiv);
+        });
+    };
+
+    request.onerror = function(event) {
+        console.error('Error fetching tiles:', event.target.error.message);
+    };
+}
+
+
+// Save Card Function
+function saveCard() {
+    const title = cardTitle.value.trim();
+    if (!title) {
+        alert('Please enter a card title.');
+        return;
+    }
+
+    if (!cardImageBlob) {
+        alert('Please upload a background image.');
+        return;
+    }
+
+    if (selectedTileIds.length === 0) {
+        alert('Please add at least one tile to the card.');
+        return;
+    }
+
+    const data = {
+        title: title,
+        type: 'card',
+        imageBlob: cardImageBlob,
+        tiles: selectedTileIds,
+        timestamp: new Date()
+    };
+
+    addCard(data);
+    plusOverlay.classList.remove('open');
+}
+
+
+// Add Card to IndexedDB
+function addCard(data) {
+    const transaction = db.transaction(['cards'], 'readwrite');
+    const store = transaction.objectStore('cards');
+    const request = store.add(data);
+
+    request.onsuccess = function() {
+        console.log('Card added to the store:', request.result);
+        // We don't need to display cards yet, as per your instruction
+    };
+
+    request.onerror = function(event) {
+        console.error('Error adding card:', event.target.error.message);
+    };
+}
 
     </script>
 </body>
