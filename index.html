@@ -1,8 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Vault</title>
     <style>
-        /* Updated CSS will be included in the next section */
+        /* CSS Styles */
+
+        body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #000;
+    color: #fff;
+}
+
+
+/* Overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 4;
+}
+
+
+.overlay.open {
+    display: flex;
+}
+
+
+/* Header */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #000;
+}
+
+
+.title {
+    font-size: 24px;
+    color: #fff;
+    margin: 0;
+}
+
+
+/* Search Bar */
+.search-bar-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+
+.search {
+    width: 750px;
+    padding: 10px;
+    border-radius: 30px;
+    border: 1px solid #555;
+    font-size: 16px;
+    background-color: #222;
+    color: #fff;
+    text-align: left;
+}
+
+
+/* Add Tile Button */
+.add-tile-container {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+    position: relative;
+}
+
+
+.add-tile {
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    background-color: #333;
+    cursor: pointer;
+    color: #fff;
+    font-size: 30px;
+    line-height: 50px;
+    text-align: center;
+}
+
+
+.add-tile:hover {
+    background-color: #555;
+}
+
+
+/* Plus Popup */
+.plus-popup {
+    background-color: #222;
+    padding: 20px;
+    border-radius: 10px;
+    width: 350px;
+    box-sizing: border-box;
+}
+
+
+.popup-content input,
+.popup-content textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: #333;
+    border: 1px solid #555;
+    border-radius: 5px;
+    color: #fff;
+    box-sizing: border-box;
+}
+
+
+.popup-content textarea {
+    height: 150px;
+    resize: none; /* Fixed size */
+    overflow-y: auto; /* Scroll vertically */
+}
+
+
+/* File Types Buttons */
+.file-types {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+
+.file-type-btn {
+    padding: 10px 20px;
+    background-color: #444;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+}
+
+
+.file-type-btn:hover {
+    background-color: #666;
+}
+
+
+/* Save Button */
+.save-btn {
+    display: none;
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+}
+
+
+.save-btn:hover {
+    background-color: #0056b3;
+}
+
+
+/* Upload Area */
+.upload-area {
+    display: none;
+    width: 100%;
+    height: 150px;
+    border: 2px dashed #555;
+    border-radius: 5px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    cursor: pointer;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}
+
+
+.upload-area p {
+    margin: 0;
+}
+
+
+/* Remove "Choose File" button */
+.upload-area input[type="file"] {
+    display: none;
+}
+
+
+/* Tiles Container */
+.tiles-container,
+.search-results-container {
+    margin: 20px auto;
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+
+/* Tiles */
+.tile {
+    position: relative;
+    border: 1px solid #555;
+    width: 120px;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+
+/* Tile Title */
+.tile h3 {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    margin: 0;
+    font-size: 14px;
+    width: calc(100% - 10px);
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+}
+
+
+/* Tile Tag */
+.tile-tag {
+    position: absolute;
+    top: -5px;
+    left: 0;
+    background-color: #777;
+    padding: 5px 10px;
+    border-radius: 3px 0 5px 0; /* Rounded bottom-right edge */
+    font-size: 12px;
+    color: #fff;
+    z-index: 1;
+}
+
+
+/* Tile Popup */
+.tile-popup {
+    background-color: #222;
+    padding: 20px;
+    border-radius: 10px;
+    width: 600px;
+    max-height: 80%;
+    overflow-y: auto;
+    box-sizing: border-box;
+    color: #fff;
+    text-align: center;
+    position: relative;
+}
+
+
+/* Tile Popup Tag */
+.tile-popup-tag {
+    position: absolute;
+    top: -5px;
+    left: 0;
+    background-color: #777;
+    padding: 10px 15px;
+    border-radius: 3px 0 5px 0; /* Rounded bottom-right edge */
+    font-size: 14px;
+    color: #fff;
+    z-index: 1;
+}
+
+
+/* Tile Actions */
+.tile-actions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+
+.tile-action-btn {
+    background-color: #444;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 15px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+
+.tile-action-btn:hover {
+    background-color: #666;
+}
+
+
+/* Replace Button (for image/video tiles) */
+.replace-btn {
+    display: none; /* Will be displayed for image/video tiles */
+    margin-bottom: 15px;
+    background-color: #007BFF;
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+}
+
+
+.replace-btn:hover {
+    background-color: #0056b3;
+}
+
+
+/* Tile Title */
+.popup-tile-title {
+    width: 100%;
+    padding: 10px;
+    margin-top: 50px; /* Reduce margin-top to raise the title textbox */
+    margin-bottom: 15px;
+    background-color: #333;
+    border: 1px solid #555;
+    border-radius: 10px; /* More rounded */
+    color: #fff;
+    box-sizing: border-box;
+    text-align: left;
+    font-size: 18px;
+}
+
+
+/* Tile Content */
+.popup-tile-content textarea {
+    width: 100%;
+    height: 200px; /* Reduce vertical size */
+    padding: 10px;
+    background-color: #333;
+    border: 1px solid #555;
+    border-radius: 5px;
+    color: #fff; /* Text color white */
+    font-size: 16px;
+    box-sizing: border-box;
+    resize: none; /* Fixed size */
+    overflow-y: auto; /* Scroll vertically */
+}
+
+
+/* File Container */
+.file-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+
+.file-container img,
+.file-container video {
+    max-width: 100%;
+    margin-bottom: 10px;
+}
     </style>
 </head>
 <body>
@@ -73,17 +446,11 @@
         </div>
     </div>
 
-
     <!-- JavaScript for IndexedDB and Functionality -->
     <script>
-        // Updated JavaScript code will be included in the next section
-    </script>
-</body>
-</html>
+        // JavaScript Code
 
-
-<script>
-    let db;
+        let db;
 const dbName = 'vaultDB';
 const storeName = 'tiles';
 
@@ -558,377 +925,6 @@ searchInput.addEventListener('input', function() {
 // Center search results
 searchResultsContainer.style.justifyContent = 'center';
 
-</script>
-<style>
-    body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #000;
-    color: #fff;
-}
-
-
-/* Overlay */
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 4;
-}
-
-
-.overlay.open {
-    display: flex;
-}
-
-
-/* Header */
-.header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-    background-color: #000;
-}
-
-
-.title {
-    font-size: 24px;
-    color: #fff;
-    margin: 0;
-}
-
-
-/* Search Bar */
-.search-bar-container {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-}
-
-
-.search {
-    width: 750px;
-    padding: 10px;
-    border-radius: 30px;
-    border: 1px solid #555;
-    font-size: 16px;
-    background-color: #222;
-    color: #fff;
-    text-align: left;
-}
-
-
-/* Add Tile Button */
-.add-tile-container {
-    display: flex;
-    justify-content: center;
-    margin: 10px 0;
-    position: relative;
-}
-
-
-.add-tile {
-    border: none;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    background-color: #333;
-    cursor: pointer;
-    color: #fff;
-    font-size: 30px;
-    line-height: 50px;
-    text-align: center;
-}
-
-
-.add-tile:hover {
-    background-color: #555;
-}
-
-
-/* Plus Popup */
-.plus-popup {
-    background-color: #222;
-    padding: 20px;
-    border-radius: 10px;
-    width: 350px;
-    box-sizing: border-box;
-}
-
-
-.popup-content input,
-.popup-content textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    background-color: #333;
-    border: 1px solid #555;
-    border-radius: 5px;
-    color: #fff;
-    box-sizing: border-box;
-}
-
-
-.popup-content textarea {
-    height: 150px;
-    resize: none; /* Fixed size */
-    overflow-y: auto; /* Scroll vertically */
-}
-
-
-/* File Types Buttons */
-.file-types {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 15px;
-}
-
-
-.file-type-btn {
-    padding: 10px 20px;
-    background-color: #444;
-    border: none;
-    border-radius: 8px;
-    color: #fff;
-    cursor: pointer;
-}
-
-
-.file-type-btn:hover {
-    background-color: #666;
-}
-
-
-/* Save Button */
-.save-btn {
-    display: none;
-    width: 100%;
-    padding: 10px;
-    background-color: #007BFF;
-    border: none;
-    border-radius: 8px;
-    color: #fff;
-    cursor: pointer;
-}
-
-
-.save-btn:hover {
-    background-color: #0056b3;
-}
-
-
-/* Upload Area */
-.upload-area {
-    display: none;
-    width: 100%;
-    height: 150px;
-    border: 2px dashed #555;
-    border-radius: 5px;
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 20px;
-    cursor: pointer;
-    box-sizing: border-box;
-    margin-bottom: 15px;
-}
-
-
-.upload-area p {
-    margin: 0;
-}
-
-
-/* Remove "Choose File" button */
-.upload-area input[type="file"] {
-    display: none;
-}
-
-
-/* Tiles Container */
-.tiles-container,
-.search-results-container {
-    margin: 20px auto;
-    width: 90%;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-}
-
-
-/* Tiles */
-.tile {
-    position: relative;
-    border: 1px solid #555;
-    width: 120px;
-    height: 60px;
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 5px;
-    color: #fff;
-    cursor: pointer;
-    overflow: hidden;
-}
-
-
-/* Tile Title */
-.tile h3 {
-    position: absolute;
-    bottom: 5px;
-    left: 5px;
-    margin: 0;
-    font-size: 14px;
-    width: calc(100% - 10px);
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    text-overflow: ellipsis;
-    word-wrap: break-word;
-}
-
-
-/* Tile Tag */
-.tile-tag {
-    position: absolute;
-    top: -5px;
-    left: 0;
-    background-color: #777;
-    padding: 5px 10px;
-    border-radius: 3px 0 5px 0; /* Rounded bottom-right edge */
-    font-size: 12px;
-    color: #fff;
-    z-index: 1;
-}
-
-
-/* Tile Popup */
-.tile-popup {
-    background-color: #222;
-    padding: 20px;
-    border-radius: 10px;
-    width: 600px;
-    max-height: 80%;
-    overflow-y: auto;
-    box-sizing: border-box;
-    color: #fff;
-    text-align: center;
-    position: relative;
-}
-
-
-/* Tile Popup Tag */
-.tile-popup-tag {
-    position: absolute;
-    top: -5px;
-    left: 0;
-    background-color: #777;
-    padding: 10px 15px;
-    border-radius: 3px 0 5px 0; /* Rounded bottom-right edge */
-    font-size: 14px;
-    color: #fff;
-    z-index: 1;
-}
-
-
-/* Tile Actions */
-.tile-actions {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    display: flex;
-    gap: 10px;
-}
-
-
-.tile-action-btn {
-    background-color: #444;
-    border: none;
-    border-radius: 20px;
-    padding: 10px 15px;
-    color: #fff;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-
-.tile-action-btn:hover {
-    background-color: #666;
-}
-
-
-/* Replace Button (for image/video tiles) */
-.replace-btn {
-    display: none; /* Will be displayed for image/video tiles */
-    margin-bottom: 15px;
-    background-color: #007BFF;
-    padding: 5px 10px;
-    font-size: 12px;
-    border-radius: 5px;
-    color: #fff;
-    cursor: pointer;
-}
-
-
-.replace-btn:hover {
-    background-color: #0056b3;
-}
-
-
-/* Tile Title */
-.popup-tile-title {
-    width: 100%;
-    padding: 10px;
-    margin-top: 50px; /* Reduce margin-top to raise the title textbox */
-    margin-bottom: 15px;
-    background-color: #333;
-    border: 1px solid #555;
-    border-radius: 10px; /* More rounded */
-    color: #fff;
-    box-sizing: border-box;
-    text-align: left;
-    font-size: 18px;
-}
-
-
-/* Tile Content */
-.popup-tile-content textarea {
-    width: 100%;
-    height: 200px; /* Reduce vertical size */
-    padding: 10px;
-    background-color: #333;
-    border: 1px solid #555;
-    border-radius: 5px;
-    color: #fff; /* Text color white */
-    font-size: 16px;
-    box-sizing: border-box;
-    resize: none; /* Fixed size */
-    overflow-y: auto; /* Scroll vertically */
-}
-
-
-/* File Container */
-.file-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-
-.file-container img,
-.file-container video {
-    max-width: 100%;
-    margin-bottom: 10px;
-}
-
-</style>
+    </script>
+</body>
+</html>
