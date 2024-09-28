@@ -185,7 +185,7 @@
 
 /* Save Button */
 .save-btn {
-    display: none;
+    display: block;
     width: 100%;
     padding: 10px;
     background-color: #007BFF;
@@ -193,6 +193,7 @@
     border-radius: 8px;
     color: #fff;
     cursor: pointer;
+    margin-top: 15px;
 }
 
 
@@ -443,6 +444,12 @@
 }
 
 
+/* Ensure tiles are stacked in columns of two */
+.selected-tiles-container .tile {
+    flex: 0 0 calc(50% - 10px);
+}
+
+
 /* Tile Selection Popup */
 .tile-selection-popup {
     background-color: #222;
@@ -649,6 +656,7 @@
             <div class="tile-selection-container" id="tileSelectionContainer">
                 <!-- Tiles will be displayed here -->
             </div>
+            <!-- Save Button -->
             <button class="save-btn" id="addTilesToCardButton" onclick="addSelectedTilesToCard()">Add Selected Tiles</button>
         </div>
     </div>
